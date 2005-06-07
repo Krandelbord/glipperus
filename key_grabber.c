@@ -16,7 +16,7 @@ typedef enum {
 } KeyAction;
 
 typedef struct {
-	guint keycode, modifier;
+	guchar keycode, modifier;
 	KeyAction action;
 } Key;
 
@@ -51,7 +51,7 @@ void init_keyboard()
   }
 }
 
-void grab_key(int keycode, unsigned int modifiers, Window w, KeyAction assigned_action) {
+void grab_key(guchar keycode, unsigned int modifiers, Window w, KeyAction assigned_action) {
 	Key *k;
 	k = g_malloc(sizeof(k));
 	k->keycode = keycode;
@@ -172,12 +172,11 @@ void glipper_assign_keygrab(void) {
 
 	initialize();
 	
-	int modifier = 0;
+	guchar modifier = 0;
 	modifier = modifier|ControlMask;
-	modifier = modifier|ShiftMask;
 	modifier = modifier|Mod1Mask;
 
-	int keycode = XKeysymToKeycode(dpy, XStringToKeysym("v"));
+	guchar keycode = XKeysymToKeycode(dpy, XStringToKeysym("v"));
 	grab_key(keycode, modifier, root, GLIPPER_ACTION_SHOW_MENU);
 	
 	/* Ahh byłoby pięknie 
