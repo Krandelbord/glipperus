@@ -5,7 +5,7 @@
 GList *glipper_stored_items = NULL;
 //extern GList *glipper_stored_items;
 /**
- * It just initializes ptr array 
+ * It just initializes ptr array for initial test :-P
  * @returns newly allocated glist
  **/
 void glipper_stored_items_new(void) {
@@ -40,13 +40,13 @@ void glipper_stored_items_add(glipper_clip_item *new_item) {
 	glipper_debug("Zaczynamy dopisywanie do listy elementu %s\n", new_item->contents);
 	
 	if (g_list_find_custom(glipper_stored_items, new_item, (GCompareFunc)szukaj_wpisu) ) {
+		/*
+		 * jeżeli wpis już jest na liście to nic nie robimy...
+		 * no może poza zwolnieniem pamięci 
+		 */
 		znaleziony = g_list_find_custom(glipper_stored_items, new_item, (GCompareFunc)szukaj_wpisu);
 		glipper_debug("Kurde znaleziono już w liście %s \n", ((glipper_clip_item *)znaleziony->data)->contents );
-		return;
-	}
-	if (g_list_find(glipper_stored_items, new_item)) {
-		g_print("Juz jest taki element \n");
-		g_free(new_item);
+		glipper_clip_item_destroy(new_item);
 		return;
 	}
 	guint ilosc = 0;

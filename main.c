@@ -10,6 +10,7 @@
 extern GList *glipper_stored_items; 
 
 int main(int argc, char *argv[]) {
+
 	GtkWidget *okno;
 
 	gtk_init(&argc, &argv);

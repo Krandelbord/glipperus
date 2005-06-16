@@ -1,4 +1,4 @@
-CC=gcc-4.0 -Wall -mtune=athlon -O2
+CC=gcc -Wall -g3
 CFLAGS +=`pkg-config --cflags gtk+-2.0`
 LDFALGS +=`pkg-config --libs gtk+-2.0`
 

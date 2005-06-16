@@ -9,8 +9,7 @@ typedef struct {
 
 
 void glipper_clipboard_set_txt(const gchar *newtxt) {
-	GtkClipboard *defCpb = gtk_clipboard_get (GDK_SELECTION_CLIPBOARD);
-	gtk_clipboard_set_text(defCpb, newtxt, -1);	
+	gtk_clipboard_set_text(gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), newtxt, -1);
 }
 
 static gboolean glipper_clipchange_listener (gpointer dane) {

@@ -29,7 +29,7 @@ static void glipper_contextMenu_add_clips (gpointer data, gpointer user_data) {
 
 	if (clip != NULL) {
 		clip_content_menu = gtk_image_menu_item_new_with_label (clip->contents);
-		//zawijamy wpis gdy jest zbyt d³ugi 
+		//zawijamy wpis gdy jest zbyt dÅ‚ugi 
 		label = GTK_LABEL(gtk_bin_get_child(GTK_BIN(clip_content_menu)));
 		gtk_label_set_single_line_mode(label, TRUE);
 		gtk_label_set_ellipsize(label, PANGO_ELLIPSIZE_MIDDLE);
@@ -37,8 +37,10 @@ static void glipper_contextMenu_add_clips (gpointer data, gpointer user_data) {
 		
 		g_signal_connect(clip_content_menu, "activate", G_CALLBACK (on_menuitem_clicked), contextMenu);
 		
-		GtkWidget *image = gtk_image_new_from_stock("gtk-apply", GTK_ICON_SIZE_MENU);
-		if (clip->active == TRUE) gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(clip_content_menu), image);
+		if (clip->active == TRUE) {
+			GtkWidget *image = gtk_image_new_from_stock("gtk-apply", GTK_ICON_SIZE_MENU);
+			gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(clip_content_menu), image);
+		}
 		
 		gtk_container_add (GTK_CONTAINER (contextMenu), clip_content_menu);
 		gtk_widget_show (clip_content_menu);
