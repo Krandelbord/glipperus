@@ -1,8 +1,5 @@
-wa¿ne:
-1. Zrobiæ zeby schowek siê nie blokowa³ :-P
+1. zrobiæ panel konfiguracyjny z klawiszolgi±
+2. zrobiæ msg_dialog z inforacjami
 
 mniej wa¿ne:
-1. zrobiæ zawianie d³ugich wpisów w menu_contenxtowym
-
-przysz³a "wersja":
-1. zrobiæ panel konfiguracyjny
+1. zachowywanie zawarto¶ci miêdzy sesjami
