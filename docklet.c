@@ -24,8 +24,15 @@ gboolean docklet_create(GtkWidget *win) {
   g_signal_connect(G_OBJECT(box), "button-press-event", G_CALLBACK(docklet_clicked), NULL);
 
   gtk_image_set_from_stock(GTK_IMAGE(image), GTK_STOCK_PASTE, GTK_ICON_SIZE_LARGE_TOOLBAR);
-  
+   
+  gtk_widget_show(image);
+  //GdkPixbuf *pb = gdk_pixbuf_new_from_file("/home/emil/programing/C/gtk/glipper/trunk/stock_paste.png", NULL);
+  //image = gtk_image_new_from_file("/home/emil/programing/C/gtk/glipper/trunk/stock_paste.png");
   gtk_container_add(GTK_CONTAINER(box), image);
+
+  //GdkBitmap *maska;
+  //gdk_pixbuf_render_pixmap_and_mask(pb, NULL, &maska, 245);
+  //gtk_widget_shape_combine_mask(GTK_WIDGET(docklet), maska, 0, 0);
 
   gtk_container_add(GTK_CONTAINER(docklet), box);
   gtk_widget_show_all(GTK_WIDGET(docklet));
