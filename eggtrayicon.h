@@ -1,17 +1,30 @@
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* eggtrayicon.h
+ * Copyright (C) 2002 Anders Carlsson <andersca@gnu.org>
  *
- * Contributed by Line72 <line72@line72.homelinux.com>
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
  *
- * Thanks to:
- * Anders Carlsson <andersca@gnu.org>
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
  *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
  */
 
 #ifndef __EGG_TRAY_ICON_H__
 #define __EGG_TRAY_ICON_H__
 
 #include <gtk/gtkplug.h>
+#ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
+#endif
 
 G_BEGIN_DECLS
 
@@ -31,10 +44,14 @@ struct _EggTrayIcon
 
   guint stamp;
   
+#ifdef GDK_WINDOWING_X11
   Atom selection_atom;
   Atom manager_atom;
   Atom system_tray_opcode_atom;
+  Atom orientation_atom;
   Window manager_window;
+#endif
+  GtkOrientation orientation;
 };
 
 struct _EggTrayIconClass
@@ -44,10 +61,8 @@ struct _EggTrayIconClass
 
 GType        egg_tray_icon_get_type       (void);
 
-#if EGG_TRAY_ENABLE_MULTIHEAD
 EggTrayIcon *egg_tray_icon_new_for_screen (GdkScreen   *screen,
 					   const gchar *name);
-#endif
 
 EggTrayIcon *egg_tray_icon_new            (const gchar *name);
 
@@ -58,7 +73,7 @@ guint        egg_tray_icon_send_message   (EggTrayIcon *icon,
 void         egg_tray_icon_cancel_message (EggTrayIcon *icon,
 					   guint        id);
 
-
+GtkOrientation egg_tray_icon_get_orientation (EggTrayIcon *icon);
 					    
 G_END_DECLS
 
