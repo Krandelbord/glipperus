@@ -10,7 +10,6 @@ static void on_menuitem_clicked (GtkImageMenuItem *menuitem, gpointer oneContext
 	const gchar *txt = gtk_label_get_text(GTK_LABEL(label));
 
 	glipper_stored_items_set_active(txt);
-	g_print("Wybrałeś wpis = %s \n ",  txt);
 	glipper_clipboard_set_txt(txt);
 	gtk_widget_destroy(GTK_WIDGET(oneContextMenu));
 }

@@ -9,6 +9,8 @@
 #define COPY_KEY "CTRL+INS"
 #define INSERT_KEY "SHIFT+INSERT"
 
+#define _(s) gettext(s)
+
 #ifdef DEBUG
 #  define glipper_debug(args...) g_print (args)
 #else

@@ -9,10 +9,10 @@ GList *glipper_stored_items = NULL;
  * @returns newly allocated glist
  **/
 void glipper_stored_items_new(void) {
-	glipper_stored_items_add (glipper_clip_item_new_with_txt("Trulullu"));
-	glipper_stored_items_add (glipper_clip_item_new_with_txt("Thy sun is.."));
-	glipper_stored_items_add (glipper_clip_item_new_with_txt("Trulullu"));
-	glipper_stored_items_add (glipper_clip_item_new_with_active_txt("Kre Kre active") );
+	glipper_stored_items_add (glipper_clip_item_new_with_txt(_("first default text")));
+	glipper_stored_items_add (glipper_clip_item_new_with_txt(_("second default text..")));
+	glipper_stored_items_add (glipper_clip_item_new_with_txt(_("third default text")));
+	glipper_stored_items_add (glipper_clip_item_new_with_active_txt(_("active default text")) );
 }
 
 gint szukaj_wpisu (gconstpointer a, gconstpointer b) {

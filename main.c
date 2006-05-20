@@ -6,16 +6,25 @@
 #include "stored_items.h"
 #include "clipboard.h"
 #include "config.h"
+#include <libintl.h>
+#include <locale.h>
+
+#include <ctype.h>
 
 extern GList *glipper_stored_items; 
 
 int main(int argc, char *argv[]) {
+	//setlocale(LC_ALL, "");
+	bindtextdomain("glipper", "/home/emil/programing/C/gtk/glipper/trunk/");
+	bind_textdomain_codeset("glipper", "UTF-8");
+	textdomain("glipper");
 
 	GtkWidget *okno;
 
 	gtk_init(&argc, &argv);
 	
 	okno = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+
 	glipper_stored_items_new();
 	docklet_create(okno);
 
@@ -24,7 +33,6 @@ int main(int argc, char *argv[]) {
 	glipper_assign_keygrab();
 	
 	gtk_main();
-
 
 	return 0;
 }
