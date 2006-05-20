@@ -7,12 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: glipper v0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-20 01:59+0200\n"
-"PO-Revision-Date: 2006-05-20 01:36+0200\n"
+"POT-Creation-Date: 2006-05-20 03:09+0200\n"
+"PO-Revision-Date: 2006-05-20 03:09+0200\n"
 "Last-Translator: Emil Nowak <emil5@go2.pl>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../InfoWindow.c:10
+msgid "glipper - clipboard manager"
+msgstr "glipper - narzędzie schowka"
 
 #: ../stored_items.c:12
 msgid "first default text"
@@ -30,5 +34,3 @@ msgstr "trzeci tekst"
 msgid "active default text"
 msgstr "aktywny tekst"
 
-#~ msgid "Pozdro 600"
-#~ msgstr "hujnica źółta"

@@ -6,6 +6,7 @@
 #include "stored_items.h"
 #include "clipboard.h"
 #include "config.h"
+
 #include <libintl.h>
 #include <locale.h>
 
@@ -15,9 +16,9 @@ extern GList *glipper_stored_items;
 
 int main(int argc, char *argv[]) {
 	//setlocale(LC_ALL, "");
-	bindtextdomain("glipper", "/home/emil/programing/C/gtk/glipper/trunk/");
-	bind_textdomain_codeset("glipper", "UTF-8");
-	textdomain("glipper");
+	bindtextdomain(PACKAGE, "/home/emil/programing/C/gtk/glipper/trunk/");
+	bind_textdomain_codeset(PACKAGE, "UTF-8");
+	textdomain(PACKAGE);
 
 	GtkWidget *okno;
 

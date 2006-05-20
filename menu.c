@@ -1,6 +1,7 @@
 #include "menu.h"
 #include "clipboard.h"
 #include "stored_items.h"
+#include "InfoWindow.h"
 #include "config.h"
 
 extern GList *glipper_stored_items;
@@ -14,9 +15,12 @@ static void on_menuitem_clicked (GtkImageMenuItem *menuitem, gpointer oneContext
 	gtk_widget_destroy(GTK_WIDGET(oneContextMenu));
 }
 
+static void on_info_clicked(GtkMenuItem *menuitem, gpointer user_data) {
+	info_window_new();
+}
 
 static void on_exit_clicked (GtkMenuItem *menuitem, gpointer user_data) {
-	g_print("Asta la pasta... bejbe\n");
+	g_print("asta la pasta... bejbe\n");
 	gtk_main_quit();
 }
 
@@ -72,6 +76,7 @@ GtkWidget* glipper_contextMenu_new (void) {
   info = gtk_image_menu_item_new_from_stock ("gtk-dialog-info", accel_group);
   gtk_widget_show (info);
   gtk_container_add (GTK_CONTAINER (contextMenu), info);
+  g_signal_connect(info, "activate", G_CALLBACK(on_info_clicked), NULL);
 
   info = gtk_image_menu_item_new_from_stock("gtk-refresh", accel_group);
   gtk_widget_show (info);

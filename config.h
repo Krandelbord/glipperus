@@ -9,6 +9,8 @@
 #define COPY_KEY "CTRL+INS"
 #define INSERT_KEY "SHIFT+INSERT"
 
+#include <libintl.h>
+#define PACKAGE "glipper"
 #define _(s) gettext(s)
 
 #ifdef DEBUG
