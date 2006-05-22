@@ -9,13 +9,13 @@ KonfigPath *konfig_path_new(gchar *program_name) {
 	
 	if ( !g_file_test(main_config_dir, G_FILE_TEST_IS_DIR)) {
 		/* If the main config directory doesn't existis */
-		mkdir(main_config_dir, 1);
+		mkdir(main_config_dir, S_IRWXU);
 	}
 	
 	gchar *config_dir = g_build_filename(main_config_dir, program_name, NULL);
 	if ( !g_file_test(config_dir, G_FILE_TEST_IS_DIR)) {
 		/* If the config directory doesn't existis */
-		mkdir(config_dir, 1);
+		mkdir(config_dir, S_IRWXU);
 	}
 	
 	konfig_path->configuration = g_build_filename(config_dir, "config.conf", NULL);
