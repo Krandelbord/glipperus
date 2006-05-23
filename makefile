@@ -14,7 +14,7 @@ clipboard.o: clipboard.h clipboard.c config.h stored_items.h
 clip_item.o: clip_item.h clip_item.c stored_items.h
 InfoWindow.o: InfoWindow.h InfoWindow.c config.h
 KonfigPath.o: KonfigPath.h KonfigPath.c
-ConfigDialog.o: ConfigDialog.h ConfigDialog.c config.h
+ConfigDialog.o: ConfigDialog.h ConfigDialog.c config.h KonfigPath.h
 CondifWidget.o: ConfigWidget.h ConfigWidget.c config.h
 
 po:

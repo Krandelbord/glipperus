@@ -26,6 +26,28 @@ KonfigPath *konfig_path_new(gchar *program_name) {
 	return konfig_path;
 }
 
+void konfig_path_write_default_configuration(KonfigPath *konf_path) {
+	GKeyFile *config_keyfile = g_key_file_new();
+	
+	g_key_file_set_boolean(config_keyfile, "main", "override primary", FALSE);
+	
+	g_key_file_set_boolean(config_keyfile, "main", "transparent tray", FALSE);
+	
+	g_key_file_set_integer(config_keyfile, "main", "tray icon size", 1);
+	
+	g_key_file_set_integer(config_keyfile, "main", "number of menuitems", 5);
+	
+	g_key_file_set_integer(config_keyfile, "main", "menu entry width", 40);
+	
+	gchar *raw_keyfile = g_key_file_to_data(config_keyfile, NULL, NULL);
+	
+	FILE *fp = fopen(konf_path->configuration, "w");
+	fprintf(fp, raw_keyfile);
+	fclose(fp);
+	g_key_file_free(config_keyfile);
+	g_free(raw_keyfile);
+}
+
 void konfig_path_free(KonfigPath *konf_path) {
 	g_free(konf_path->configuration);
 	g_free(konf_path->last_entries);
