@@ -54,7 +54,7 @@ void glipper_stored_items_add(glipper_clip_item *new_item) {
 	while (ilosc > MAX_NR_OF_ENTRIES) {
 		glipper_clip_item *nadmiar= g_list_nth_data(glipper_stored_items, ilosc-1);
 		glipper_debug("powinno być max %d wpisów, a jest %d\n", MAX_NR_OF_ENTRIES, ilosc);
-		g_print("Usuwanie elementu %d (%p) = %s \n", ilosc-1, nadmiar, nadmiar->contents);
+		glipper_debug("Usuwanie elementu %d (%p) = %s \n", ilosc-1, nadmiar, nadmiar->contents);
 		//najsampierw zwalniamy pamięć gdzie rezydują dane z wpisem
 		glipper_clip_item_destroy(nadmiar);	
 		glipper_stored_items = g_list_delete_link(glipper_stored_items, g_list_nth(glipper_stored_items, ilosc-1)); //usuwamy link (wskazuje już na puste miejsce
