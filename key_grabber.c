@@ -99,7 +99,9 @@ static void do_key_acton(KeyAction action, XEvent *ev) {
 	switch (action) {
 		case GLIPPER_ACTION_SHOW_MENU: {
 			GtkWidget *menu;
-			menu = glipper_contextMenu_new();
+			//FIXME: temportay null pointer 
+			RuntimeSettings *rts;
+			menu = glipper_contextMenu_new(rts);
 			gtk_menu_popup(GTK_MENU(menu),
 					NULL, 
 					NULL, (GtkMenuPositionFunc)position_thy_menu,
@@ -148,7 +150,9 @@ static gboolean nasluch_klawiszy(void *args) {
 				// być puszczony event aby mógł natysować to menu. Jeżeli byśmy go zdjęli 
 				// i nie odłożyli (za pomocą XPutBackEvent) to manu się rysuje bardz-czasami. (Bez sensu).
 				GtkWidget *menu;
-				menu = glipper_contextMenu_new();
+				//FIXME: runtime kurde tymczose
+				RuntimeSettings *rts;
+				menu = glipper_contextMenu_new(rts);
 				//gtk_menu_set_screen (GTK_MENU(menu), gdk_screen_get_default());
 				
 				/*
@@ -169,7 +173,7 @@ static gboolean nasluch_klawiszy(void *args) {
 		return TRUE;
 }
 
-void glipper_assign_keygrab(void) {
+void glipper_assign_keygrab(RuntimeSettings *rts) {
 
 	initialize();
 	

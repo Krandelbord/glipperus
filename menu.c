@@ -2,6 +2,8 @@
 #include "clipboard.h"
 #include "stored_items.h"
 #include "InfoWindow.h"
+#include "ConfigDialog.h"
+
 #include "config.h"
 
 extern GList *glipper_stored_items;
@@ -19,6 +21,11 @@ static void on_info_clicked(GtkMenuItem *menuitem, gpointer user_data) {
 	info_window_new();
 }
 
+static void on_preferences_clicked(GtkMenuItem *menuitem, gpointer user_data) {
+	RuntimeSettings *rts = (RuntimeSettings*) user_data;
+	config_dialog_new(rts);
+}
+
 static void on_exit_clicked (GtkMenuItem *menuitem, gpointer user_data) {
 	g_print("asta la pasta... bejbe\n");
 	gtk_main_quit();
@@ -30,13 +37,16 @@ static void glipper_contextMenu_add_clips (gpointer data, gpointer user_data) {
 	GtkWidget *clip_content_menu;
 	GtkLabel *label;
 
+	RuntimeSettings *rts = g_object_get_data(G_OBJECT(contextMenu), "RuntimeSettings_pointer");
+	gint menu_width = runtime_settings_get_menu_width(rts);
+	
 	if (clip != NULL) {
 		clip_content_menu = gtk_image_menu_item_new_with_label (clip->contents);
 		//zawijamy wpis gdy jest zbyt długi 
 		label = GTK_LABEL(gtk_bin_get_child(GTK_BIN(clip_content_menu)));
 		gtk_label_set_single_line_mode(label, TRUE);
 		gtk_label_set_ellipsize(label, PANGO_ELLIPSIZE_MIDDLE);
-		gtk_label_set_max_width_chars(label, MAX_TXT_WIDTH_IN_CAHRS);
+		gtk_label_set_max_width_chars(label, menu_width);
 		
 		g_signal_connect(clip_content_menu, "activate", G_CALLBACK (on_menuitem_clicked), contextMenu);
 		
@@ -50,7 +60,8 @@ static void glipper_contextMenu_add_clips (gpointer data, gpointer user_data) {
 	}
 }
 
-GtkWidget* glipper_contextMenu_new (void) {
+GtkWidget* glipper_contextMenu_new (RuntimeSettings *rts) {
+	g_print("W menu szerokosc = %d \n", runtime_settings_get_menu_width(rts));
   GtkWidget *contextMenu;
   GtkWidget *separator;
   GtkWidget *ustawienia;
@@ -62,6 +73,7 @@ GtkWidget* glipper_contextMenu_new (void) {
 
   contextMenu = gtk_menu_new ();
 
+  g_object_set_data(G_OBJECT(contextMenu), "RuntimeSettings_pointer", rts);
   g_list_foreach(glipper_stored_items, (GFunc)glipper_contextMenu_add_clips, contextMenu);  
 
   separator = gtk_menu_item_new ();
@@ -72,16 +84,12 @@ GtkWidget* glipper_contextMenu_new (void) {
   ustawienia = gtk_image_menu_item_new_from_stock ("gtk-preferences", accel_group);
   gtk_widget_show (ustawienia);
   gtk_container_add (GTK_CONTAINER (contextMenu), ustawienia);
+  g_signal_connect(ustawienia, "activate", G_CALLBACK(on_preferences_clicked), rts);
 
   info = gtk_image_menu_item_new_from_stock ("gtk-dialog-info", accel_group);
   gtk_widget_show (info);
   gtk_container_add (GTK_CONTAINER (contextMenu), info);
   g_signal_connect(info, "activate", G_CALLBACK(on_info_clicked), NULL);
-
-  info = gtk_image_menu_item_new_from_stock("gtk-refresh", accel_group);
-  gtk_widget_show (info);
-  g_signal_connect(info, "activate", G_CALLBACK(glipper_clip_grabber), NULL);
-  gtk_container_add (GTK_CONTAINER (contextMenu), info);
   
   separator = gtk_menu_item_new ();
   gtk_widget_show (separator);

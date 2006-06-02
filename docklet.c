@@ -5,7 +5,7 @@
 #include "menu.h"
 #include "config.h"
 
-static void docklet_clicked(GtkWidget *button, GdkEventButton *event, void *data);
+static void docklet_clicked(GtkWidget *button, GdkEventButton *event, gpointer *data);
 static void docklet_destroyed(GtkWidget *widget, void *data);
 
 static EggTrayIcon *docklet = NULL;
@@ -19,7 +19,7 @@ gboolean docklet_create(RuntimeSettings *rts) {
 	image = gtk_image_new();
 
 	g_signal_connect(G_OBJECT(docklet), "destroy", G_CALLBACK(docklet_destroyed), NULL);
-	g_signal_connect(G_OBJECT(box), "button-press-event", G_CALLBACK(docklet_clicked), NULL);
+	g_signal_connect(G_OBJECT(box), "button-press-event", G_CALLBACK(docklet_clicked), rts);
 
 	//gtk_image_set_from_stock(GTK_IMAGE(image), GTK_STOCK_PASTE, GTK_ICON_SIZE_LARGE_TOOLBAR);
 	
@@ -56,7 +56,8 @@ gboolean docklet_create(RuntimeSettings *rts) {
 	return FALSE;
 }
 
-void docklet_clicked(GtkWidget *button, GdkEventButton *event, void *data) {
+void docklet_clicked(GtkWidget *button, GdkEventButton *event, gpointer *data) {
+	RuntimeSettings *rts = (RuntimeSettings*) data;
 	GtkWidget *menu;
 
 	if (event->type != GDK_BUTTON_PRESS)
@@ -64,7 +65,7 @@ void docklet_clicked(GtkWidget *button, GdkEventButton *event, void *data) {
 
 	if (event->button == 3 || event->button == 1 || event->button == 2)
 	{
-		menu = glipper_contextMenu_new();
+		menu = glipper_contextMenu_new(rts);
 		gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL,
 				event->button, event->time);
 	}

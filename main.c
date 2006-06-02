@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
 	konfig_path_free(kfpath);
 	
 	
-	GtkWidget *okno = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	//GtkWidget *okno = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
 	glipper_stored_items_new();
 	docklet_create(rts);

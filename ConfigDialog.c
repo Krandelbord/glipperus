@@ -1,4 +1,6 @@
-	#include <gtk/gtk.h>
+#include <gtk/gtk.h>
+#include "ConfigDialog.h"
+
 #include "KonfigPath.h"
 #include <string.h>
 
@@ -11,7 +13,7 @@ static void on_destroy_cb(GtkObject *obj, gpointer data);
 
 //static void config_window_draw_background(GtkWidget *window);
 
-void config_dialog_new(void) {
+void config_dialog_new(RuntimeSettings *rts) {
 	GtkWidget *config_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_container_set_border_width(GTK_CONTAINER(config_window), 10);
 	

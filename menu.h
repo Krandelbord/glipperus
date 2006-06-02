@@ -1,3 +1,7 @@
 #include <gtk/gtk.h>
 
-GtkWidget* glipper_contextMenu_new ();
+#ifndef RUNTIME_SETTINGS_H
+	#include "RuntimeSettings.h"
+#endif
+
+GtkWidget* glipper_contextMenu_new (RuntimeSettings *rts);
