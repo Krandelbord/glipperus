@@ -33,7 +33,7 @@ void konfig_path_write_default_configuration(KonfigPath *konf_path) {
 	
 	g_key_file_set_boolean(config_keyfile, "main", "transparent tray", FALSE);
 	
-	g_key_file_set_integer(config_keyfile, "main", "tray icon size", 1);
+	g_key_file_set_integer(config_keyfile, "main", "tray icon size", 2);
 	
 	g_key_file_set_integer(config_keyfile, "main", "number of menuitems", 5);
 	

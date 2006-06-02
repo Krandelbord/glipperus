@@ -7,12 +7,64 @@ msgid ""
 msgstr ""
 "Project-Id-Version: glipper v0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-20 03:09+0200\n"
-"PO-Revision-Date: 2006-05-20 03:09+0200\n"
+"POT-Creation-Date: 2006-05-23 17:47+0200\n"
+"PO-Revision-Date: 2006-05-23 17:50+0200\n"
 "Last-Translator: Emil Nowak <emil5@go2.pl>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../ConfigDialog.c:20
+msgid "glipper - configuration"
+msgstr "glipper - narzędzie schowka"
+
+#: ../ConfigDialog.c:40
+msgid "Common preferences"
+msgstr ""
+
+#: ../ConfigDialog.c:44
+msgid "keyboard shortcuts"
+msgstr ""
+
+#: ../ConfigDialog.c:78
+msgid "<b><big>glipper - configuration</big></b>"
+msgstr "<b><big>glipper - konfiguracja</big></b>"
+
+#: ../ConfigDialog.c:81
+msgid "Override primary selection"
+msgstr "Nadpisuj schowek zaznaczenia"
+
+#: ../ConfigDialog.c:84
+msgid "Transparent tray icon"
+msgstr "Przezroczysta ikonka w tray'u"
+
+#: ../ConfigDialog.c:87
+msgid "Tray icon size"
+msgstr "Rozmiar ikonki w tray'u"
+
+#: ../ConfigDialog.c:87
+msgid "Small"
+msgstr "Mała"
+
+#: ../ConfigDialog.c:87
+msgid "Medium"
+msgstr "Średnia"
+
+#: ../ConfigDialog.c:87
+msgid "Large"
+msgstr "Duża"
+
+#: ../ConfigDialog.c:90
+msgid "Number of items in menu"
+msgstr "Ilość wpisów w menu"
+
+#: ../ConfigDialog.c:93
+msgid "Width of menu items in [chars]"
+msgstr "Szerokość wpisów w menu [w znakach]"
+
+#: ../ConfigDialog.c:104
+msgid "<b><big>glipper key config</big></b>"
+msgstr "<b><big>konfiguracja klawiszy w glipperze</big></b>"
 
 #: ../InfoWindow.c:10
 msgid "glipper - clipboard manager"
@@ -33,4 +85,3 @@ msgstr "trzeci tekst"
 #: ../stored_items.c:15
 msgid "active default text"
 msgstr "aktywny tekst"
-

@@ -55,6 +55,7 @@ void grab_key(guchar keycode, unsigned int modifiers, Window w, KeyAction assign
 	Key *k;
 	k = g_malloc(sizeof(k));
 	k->keycode = keycode;
+
 	k->modifier = modifiers;
 	k->action = assigned_action;
 	kList = g_slist_append(kList, k);
