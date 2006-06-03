@@ -39,10 +39,10 @@ int main(int argc, char *argv[]) {
 	
 	//GtkWidget *okno = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
-	glipper_stored_items_new();
+	glipper_stored_items_new(rts);
 	docklet_create(rts);
 
-	glipper_clip_grabber();
+	glipper_clip_grabber(rts);
 	
 	//glipper_assign_keygrab();
 	

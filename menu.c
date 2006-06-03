@@ -9,11 +9,19 @@
 extern GList *glipper_stored_items;
 
 static void on_menuitem_clicked (GtkImageMenuItem *menuitem, gpointer oneContextMenu) {
+	RuntimeSettings *rts = g_object_get_data(G_OBJECT(menuitem), "RuntimeSettings_pointer");
+	
+	
 	GtkWidget *label = gtk_bin_get_child(GTK_BIN(menuitem));
 	const gchar *txt = gtk_label_get_text(GTK_LABEL(label));
 
 	glipper_stored_items_set_active(txt);
-	glipper_clipboard_set_txt(txt);
+	//glipper_clipboard_set_txt(txt);
+	gtk_clipboard_set_text(gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), txt, -1);
+	
+	if (runtime_settings_get_override_sel(rts))
+		gtk_clipboard_set_text(gtk_clipboard_get (GDK_SELECTION_PRIMARY), txt, -1);
+	
 	gtk_widget_destroy(GTK_WIDGET(oneContextMenu));
 }
 
@@ -42,6 +50,9 @@ static void glipper_contextMenu_add_clips (gpointer data, gpointer user_data) {
 	
 	if (clip != NULL) {
 		clip_content_menu = gtk_image_menu_item_new_with_label (clip->contents);
+		
+		g_object_set_data(G_OBJECT(clip_content_menu), "RuntimeSettings_pointer", rts);
+		
 		//zawijamy wpis gdy jest zbyt długi 
 		label = GTK_LABEL(gtk_bin_get_child(GTK_BIN(clip_content_menu)));
 		gtk_label_set_single_line_mode(label, TRUE);

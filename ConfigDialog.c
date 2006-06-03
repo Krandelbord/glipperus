@@ -90,7 +90,15 @@ static GtkWidget *config_dialog_draw_common_config(GKeyFile *konfig_keyfile) {
 	GtkWidget *set_03 = config_widget_new_bool(konfig_keyfile, "transparent tray", _("Transparent tray icon"));
 	gtk_box_pack_start(GTK_BOX(main_box), set_03, FALSE, FALSE, 0);
 	
-	GtkWidget *set_04 = config_widget_new_combo(konfig_keyfile, "tray icon size", _("Tray icon size"), _("Small"), _("Medium"), _("Large"), NULL);
+	GtkWidget *set_04 = config_widget_new_combo(konfig_keyfile, "tray icon size", 
+		_("Tray icon size"), 
+		_("Tiny"), 
+		_("Small"), 
+		_("Normal"), 
+		_("Large"), 
+		_("Huge"), 
+		_("Extra huge"), 
+		NULL);
 	gtk_box_pack_start(GTK_BOX(main_box), set_04, FALSE, FALSE, 0);	
 	
 	GtkWidget *set_05 = config_widget_new_int(konfig_keyfile, "number of menuitems", _("Number of items in menu"));
