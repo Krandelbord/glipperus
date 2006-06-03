@@ -33,6 +33,9 @@ int main(int argc, char *argv[]) {
 	gtk_init(&argc, &argv);
 	
 	KonfigPath *kfpath = konfig_path_new("glipper");
+	if (! konfig_path_file_exists(kfpath))
+		konfig_path_write_default_configuration(kfpath);
+
 	RuntimeSettings *rts = runtime_settings_new(kfpath->configuration);
 	konfig_path_free(kfpath);
 	
