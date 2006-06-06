@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "ConfigWidget.h"
+#include "HelpWindow.h"
 #define DEBUG
 #include "config.h"
 
@@ -202,8 +203,9 @@ static void on_cancel_clicked(GtkWidget *button, gpointer user_data) {
 }
 
 static void on_help_clicked(GtkWidget *button, gpointer user_data) {
-	GtkWidget *help_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_widget_show_all(help_window);
+	GtkWidget *help_win = help_window_new(GTK_WINDOW(user_data));
+	
+	gtk_widget_show_all(help_win);
 	glipper_debug("Help clicked\n");
 }
 
