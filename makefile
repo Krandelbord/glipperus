@@ -1,5 +1,5 @@
-CC=gcc -Wall -g3
-CFLAGS+=-DDEBUG
+CFLAGS+=-DDEBUG -Wall -g3
+#CFLAGS+=-O2
 CFLAGS +=`pkg-config --cflags gtk+-2.0`
 LDFLAGS +=`pkg-config --libs gtk+-2.0`
 
