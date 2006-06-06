@@ -9,6 +9,8 @@
 
 static GtkWidget *config_dialog_draw_common_config(GKeyFile *key_config_file);
 static GtkWidget *config_dialog_draw_key_config(GKeyFile *key_config_file);
+static GtkWidget *config_dialog_draw_buttonbar(GtkWindow *parent_win);
+static void config_dialog_save_data(GtkWidget *config_panel, GKeyFile *keyfile);
 static void on_destroy_cb(GtkObject *obj, gpointer data);
 
 //static void config_window_draw_background(GtkWidget *window);
@@ -26,9 +28,14 @@ void config_dialog_new(RuntimeSettings *rts) {
 	gtk_window_set_icon(GTK_WINDOW(config_window), icon_pbxf);
 	g_object_unref(icon_pbxf);
 	
+	GtkWidget *main_box = gtk_vbox_new(FALSE, 5);
+	gtk_container_add(GTK_CONTAINER(config_window), main_box);
+	
 	GtkWidget *notebook = gtk_notebook_new();
 
-	gtk_container_add(GTK_CONTAINER(config_window), notebook);
+	//gtk_container_add(GTK_CONTAINER(config_window), notebook);
+	gtk_box_pack_start(GTK_BOX(main_box), notebook, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(main_box), config_dialog_draw_buttonbar(GTK_WINDOW(config_window)), FALSE, FALSE, 0);
 	
 	GKeyFile *keyfile = g_key_file_new();
 	KonfigPath *konf_path = konfig_path_new("glipper");
@@ -39,6 +46,7 @@ void config_dialog_new(RuntimeSettings *rts) {
 	
 	/* We save pointer to Box with all config widget so we can easly get them when closing window */
 	g_object_set_data(G_OBJECT(config_window), "config_panel", common_conf);
+	g_object_set_data(G_OBJECT(config_window), "keyfile", keyfile);
 	
 	GtkWidget *common_conf_label = gtk_label_new(_("Common preferences"));
 	gtk_notebook_append_page(GTK_NOTEBOOK(notebook), common_conf, common_conf_label);
@@ -180,10 +188,50 @@ static GtkWidget *config_dialog_draw_key_config(GKeyFile *konfig_key_file) {
 	return main_box;
 }
 
+static void on_cancel_clicked(GtkWidget *button, gpointer user_data) {
+	glipper_debug("Cancel clicked\n");
+	gtk_widget_destroy(GTK_WIDGET(user_data));
+}
+
+static void on_help_clicked(GtkWidget *button, gpointer user_data) {
+	glipper_debug("Help clicked\n");
+}
+
+static void on_save_clicked(GtkWidget *button, gpointer user_data) {	
+	GtkWindow *main_config_window = (GtkWindow*) user_data;
+	
+	GtkWidget *common_conf_wdg = g_object_get_data(G_OBJECT(main_config_window), "config_panel");
+	GKeyFile *keyfile = g_object_get_data(G_OBJECT(main_config_window), "keyfile");
+	
+	config_dialog_save_data(common_conf_wdg, keyfile);
+	gtk_widget_destroy(GTK_WIDGET(main_config_window));
+}
+
+static GtkWidget *config_dialog_draw_buttonbar(GtkWindow *parent_win) {
+	GtkWidget *hbtb = gtk_hbutton_box_new();
+
+	GtkWidget *bt_cancel = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+	gtk_container_add(GTK_CONTAINER(hbtb),bt_cancel);
+	g_signal_connect(G_OBJECT(bt_cancel), "clicked", G_CALLBACK(on_cancel_clicked), parent_win);
+	
+	GtkWidget *bt_help = gtk_button_new_from_stock(GTK_STOCK_HELP);
+	gtk_container_add(GTK_CONTAINER(hbtb),bt_help);
+	g_signal_connect(G_OBJECT(bt_help), "clicked", G_CALLBACK(on_help_clicked), parent_win);
+	
+	GtkWidget *bt1 = gtk_button_new_from_stock(GTK_STOCK_APPLY);
+	gtk_container_add(GTK_CONTAINER(hbtb),bt1);
+	g_signal_connect(G_OBJECT(bt1), "clicked", G_CALLBACK(on_save_clicked), parent_win);
+	
+	gtk_widget_show_all(hbtb);
+	return hbtb;
+}
+
 static void on_destroy_cb(GtkObject *obj, gpointer data) {
-	GKeyFile *keyfile = (GKeyFile *) data;
-	GtkWidget *common_conf_wdg = g_object_get_data(G_OBJECT(obj), "config_panel");
-	gtk_container_foreach(GTK_CONTAINER(common_conf_wdg), each_widget_cb, keyfile);
+
+}
+
+static void config_dialog_save_data(GtkWidget *config_panel, GKeyFile *keyfile) {
+	gtk_container_foreach(GTK_CONTAINER(config_panel), each_widget_cb, keyfile);
 	gchar *raw_keyfile = g_key_file_to_data(keyfile, NULL, NULL);
 	KonfigPath *konf_path = konfig_path_new("glipper");
 	FILE *config_fp = fopen(konf_path->configuration, "w");
@@ -192,10 +240,8 @@ static void on_destroy_cb(GtkObject *obj, gpointer data) {
 	fclose(config_fp);
 	g_free(raw_keyfile);
 	g_key_file_free(keyfile);
-	gtk_main_quit();
 }
-
 void config_dialog_free(void) {
-	/* we need to unref the icon_pbxf */
+	/* do we need to unref the icon_pbxf ? */
 	
 }
