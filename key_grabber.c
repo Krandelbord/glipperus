@@ -75,12 +75,12 @@ void initialize(void) {
 	//opens default display
 	dpy = XOpenDisplay(NULL);
 	if (!dpy) {
-		g_print("Błąd podczas inicjalizacji Display'a \n");
+		g_error(_("glipper error: Cannot open default XDisplay.\n"));
 	}
 	//gets rootWindow
 	root = XDefaultRootWindow(dpy);
 	if (!root) {
-		g_print("Error totalny nie można grabnąć rootWindowa \n");
+		g_error(_("glipper error: Cannot open root window\n"));
 	}
 	init_keyboard();
 }
