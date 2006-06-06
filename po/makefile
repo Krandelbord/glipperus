@@ -4,7 +4,7 @@ mo_files:= $(patsubst %.po,%.mo,$(translations))
 all: glipper.pot $(mo_files)
 
 glipper.pot:
-	xgettext --keyword=_ ../*.c ../*.h -o $@
+	xgettext -cTranslators: --keyword=_ ../*.c ../*.h -o $@
 
 #updates all translation based on current pot file
 $(translations): glipper.pot
