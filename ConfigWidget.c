@@ -3,28 +3,26 @@
 /* Creates hbox, and puts label for it. Returns createad hbox */
 static GtkWidget *config_widget_common(gchar *label_txt);
 
-
-GtkWidget *config_widget_new_bool(GKeyFile *keyfile, gchar *key, gchar *title) {	
+GtkWidget *config_widget_new_bool(RuntimeSettings *rts, gboolean value, GKeyFile *keyfile, gchar *key, gchar *title) {	
 	GtkWidget *chck_button = gtk_check_button_new_with_label(title);
-	gboolean active = g_key_file_get_boolean(keyfile, "main", key, NULL);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(chck_button), active);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(chck_button), value);
 	
 	g_object_set_data(G_OBJECT(chck_button), "key", key);
 	return chck_button;
 }
 
-GtkWidget *config_widget_new_int(GKeyFile *keyfile, gchar *key, gchar *title) {
+GtkWidget *config_widget_new_int(RuntimeSettings *rts, gint value, GKeyFile *keyfile, gchar *key, gchar *title) {
 	GtkWidget *common = config_widget_common(title);
 	GtkWidget *spin_btn = gtk_spin_button_new_with_range(1, 99, 1);
 	gtk_box_pack_start(GTK_BOX(common), spin_btn, FALSE, FALSE, 0);
-	gint value_from_config = g_key_file_get_integer(keyfile, "main", key, NULL);
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(spin_btn), value_from_config);
+	
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(spin_btn), value);
 	
 	g_object_set_data(G_OBJECT(spin_btn), "key", key);
 	return common;
 }
 
-GtkWidget *config_widget_new_combo(GKeyFile *keyfile, gchar *key, gchar *title, gchar *element, ...) {
+GtkWidget *config_widget_new_combo(RuntimeSettings *rts, gint value, GKeyFile *keyfile, gchar *key, gchar *title, gchar *element, ...) {
 	va_list args;
 	va_start(args, element);
 	GtkWidget *common = config_widget_common(title);
@@ -39,8 +37,7 @@ GtkWidget *config_widget_new_combo(GKeyFile *keyfile, gchar *key, gchar *title, 
 	
 	va_end(args);
 	
-	gint value_from_config = g_key_file_get_integer(keyfile, "main", key, NULL);
-	gtk_combo_box_set_active(GTK_COMBO_BOX(combo), value_from_config);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(combo), value);
 	
 	g_object_set_data(G_OBJECT(combo), "key", key);
 	return common;
@@ -67,7 +64,7 @@ void config_widget_read_data_from_widgets(GtkWidget *config_widget, gpointer dat
 		g_key_file_set_integer(keyfile, "main", key, read_from_wdg);
 	} else if (GTK_IS_SPIN_BUTTON(config_widget)) {
 		gint read_from_wdg = gtk_spin_button_get_value(GTK_SPIN_BUTTON(config_widget));
-		g_key_file_set_integer(keyfile, "main", key, read_from_wdg);		
+		g_key_file_set_integer(keyfile, "main", key, read_from_wdg);
 	} else if (GTK_IS_BOX(config_widget)) {
 		/* i od nowa polska ludowa... */
 		gtk_container_foreach(GTK_CONTAINER(config_widget), config_widget_read_data_from_widgets, keyfile);

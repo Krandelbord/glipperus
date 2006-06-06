@@ -23,6 +23,7 @@ typedef struct _RuntimeSettings {
 
 
 RuntimeSettings *runtime_settings_new(gchar *path_to_config_file);
+void runtime_settings_read_from_file(RuntimeSettings *rts, GKeyFile *keyfile);
 
 void runtime_settings_set_override_sel(RuntimeSettings *rts, gboolean override_selection);
 void runtime_settings_set_overwrite_similar(RuntimeSettings *rts, gboolean overwrite_similar);

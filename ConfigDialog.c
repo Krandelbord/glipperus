@@ -5,9 +5,10 @@
 #include <string.h>
 
 #include "ConfigWidget.h"
+#define DEBUG
 #include "config.h"
 
-static GtkWidget *config_dialog_draw_common_config(GKeyFile *key_config_file);
+static GtkWidget *config_dialog_draw_common_config(GKeyFile *key_config_file, RuntimeSettings *rts);
 static GtkWidget *config_dialog_draw_key_config(GKeyFile *key_config_file);
 static GtkWidget *config_dialog_draw_buttonbar(GtkWindow *parent_win);
 static void config_dialog_save_data(GtkWidget *config_panel, GKeyFile *keyfile);
@@ -42,18 +43,19 @@ void config_dialog_new(RuntimeSettings *rts) {
 	g_key_file_load_from_file(keyfile, konf_path->configuration, G_KEY_FILE_KEEP_COMMENTS, NULL);
 	konfig_path_free(konf_path);
 	
-	GtkWidget *common_conf = config_dialog_draw_common_config(keyfile);
+	GtkWidget *common_conf = config_dialog_draw_common_config(keyfile, rts);
 	
 	/* We save pointer to Box with all config widget so we can easly get them when closing window */
 	g_object_set_data(G_OBJECT(config_window), "config_panel", common_conf);
 	g_object_set_data(G_OBJECT(config_window), "keyfile", keyfile);
+	g_object_set_data(G_OBJECT(config_window), "RuntimeSettings_pointer", rts);
 	
 	GtkWidget *common_conf_label = gtk_label_new(_("Common preferences"));
 	gtk_notebook_append_page(GTK_NOTEBOOK(notebook), common_conf, common_conf_label);
 	
-	GtkWidget *key_conf = config_dialog_draw_key_config(keyfile);
+	GtkWidget *key_conf_panel = config_dialog_draw_key_config(keyfile);
 	GtkWidget *key_conf_label = gtk_label_new(_("keyboard shortcuts"));
-	gtk_notebook_append_page(GTK_NOTEBOOK(notebook), key_conf, key_conf_label);
+	gtk_notebook_append_page(GTK_NOTEBOOK(notebook), key_conf_panel, key_conf_label);
 	
 	gtk_widget_show_all(config_window);
 	g_signal_connect(G_OBJECT(config_window), "destroy", G_CALLBACK(on_destroy_cb), keyfile);
@@ -77,10 +79,10 @@ void each_widget_cb(GtkWidget *widget, gpointer data) {
 	}
 }
 
-static GtkWidget *config_dialog_draw_common_config(GKeyFile *konfig_keyfile) {
+static GtkWidget *config_dialog_draw_common_config(GKeyFile *konfig_keyfile, RuntimeSettings *rts) {
 	/* Dont mess up with new widget type, because, reading data from 
 	 * all this window, and saving to file dpeneds of widget type
-	 * So you can easily add ConfigWidgets here, but It needs more modifications if you want
+	 * So you can easily add more ConfigWidgets here, but It needs more modifications if you want
 	 * to add something else 
 	 */
 	
@@ -89,16 +91,20 @@ static GtkWidget *config_dialog_draw_common_config(GKeyFile *konfig_keyfile) {
 	gtk_label_set_markup (GTK_LABEL (title_lb), _("<b><big>glipper - configuration</big></b>"));
 	gtk_box_pack_start(GTK_BOX(main_box), title_lb, FALSE, FALSE, 10);
 	
-	GtkWidget *set_01 = config_widget_new_bool(konfig_keyfile, "override primary", _("Override primary selection"));
+	gboolean ov_prim = runtime_settings_get_override_sel(rts);
+	GtkWidget *set_01 = config_widget_new_bool(rts, ov_prim, konfig_keyfile, "override primary", _("Override primary selection"));
 	gtk_box_pack_start(GTK_BOX(main_box), set_01, FALSE, FALSE, 0);
 	
-	GtkWidget *set_02 = config_widget_new_bool(konfig_keyfile, "overwrite similar", _("Overwrite similar entries"));
+	gboolean ov_sim = runtime_settings_get_overwrite_similar(rts);
+	GtkWidget *set_02 = config_widget_new_bool(rts, ov_sim, konfig_keyfile, "overwrite similar", _("Overwrite similar entries"));
 	gtk_box_pack_start(GTK_BOX(main_box), set_02, FALSE, FALSE, 0);
 	
-	GtkWidget *set_03 = config_widget_new_bool(konfig_keyfile, "transparent tray", _("Transparent tray icon"));
+	gboolean transp_tray = runtime_settings_get_trasparent_tray(rts);
+	GtkWidget *set_03 = config_widget_new_bool(rts, transp_tray, konfig_keyfile, "transparent tray", _("Transparent tray icon"));
 	gtk_box_pack_start(GTK_BOX(main_box), set_03, FALSE, FALSE, 0);
 	
-	GtkWidget *set_04 = config_widget_new_combo(konfig_keyfile, "tray icon size", 
+	gint tray_size = runtime_settings_get_tray_icon_size(rts);
+	GtkWidget *set_04 = config_widget_new_combo(rts, tray_size, konfig_keyfile, "tray icon size", 
 		_("Tray icon size"), 
 		_("Tiny"), 
 		_("Small"), 
@@ -109,10 +115,12 @@ static GtkWidget *config_dialog_draw_common_config(GKeyFile *konfig_keyfile) {
 		NULL);
 	gtk_box_pack_start(GTK_BOX(main_box), set_04, FALSE, FALSE, 0);	
 	
-	GtkWidget *set_05 = config_widget_new_int(konfig_keyfile, "number of menuitems", _("Number of items in menu"));
+	gint entries_numb = runtime_settings_get_number_of_entries(rts);
+	GtkWidget *set_05 = config_widget_new_int(rts, entries_numb, konfig_keyfile, "number of menuitems", _("Number of items in menu"));
 	gtk_box_pack_start(GTK_BOX(main_box), set_05, FALSE, FALSE, 0);
 	
-	GtkWidget *set_06 = config_widget_new_int(konfig_keyfile, "menu entry width", _("Width of menu items in [chars]"));
+	gint menu_width = runtime_settings_get_menu_width(rts);
+	GtkWidget *set_06 = config_widget_new_int(rts, menu_width, konfig_keyfile, "menu entry width", _("Width of menu items in [chars]"));
 	gtk_box_pack_start(GTK_BOX(main_box), set_06, FALSE, FALSE, 0);
 	
 	//gtk_container_foreach(GTK_CONTAINER(main_box), each_widget_cb, konfig_keyfile);
@@ -147,7 +155,7 @@ gboolean key_is_not_modifier(gchar *keyname) {
 }
 
 static void cb_keyb_press(GtkWidget   *widget, GdkEventKey *event, gpointer user_data) {
-	g_print("Wcisnieto klawisz\n");
+	glipper_debug("Wcisnieto klawisz\n");
 	guint keyval;
 	GdkModifierType cons_modif;
 	gdk_keymap_translate_keyboard_state(gdk_keymap_get_default (),
@@ -160,19 +168,19 @@ static void cb_keyb_press(GtkWidget   *widget, GdkEventKey *event, gpointer user
 	/* There must be some real key (not ctrl/alt/shift) to assign shotrcut key */
 	if (key_is_not_modifier(last_key)) {
 		
-		g_print("Koniec !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+		glipper_debug("Koniec !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 		gchar **all_keys = g_strsplit(accelerator, ">", -1);
 		if (all_keys !=NULL) {
 			int i=0;
 			while (all_keys[i]!=NULL) {
-				g_print("[%d]=%s\n", i, all_keys[i]);
+				glipper_debug("[%d]=%s\n", i, all_keys[i]);
 				++i;
 			}
 		}
 	}
-	g_print("Wcisnieto klawisz %d hw=%d, accel = %s\n", keyval, event->hardware_keycode, accelerator);
-	g_print("Nazwa tego przyciska = %s\n", gdk_keyval_name(keyval));
-	g_print("Human redable %s \n", gtk_accelerator_get_label(keyval, cons_modif));
+	glipper_debug("Wcisnieto klawisz %d hw=%d, accel = %s\n", keyval, event->hardware_keycode, accelerator);
+	glipper_debug("Nazwa tego przyciska = %s\n", gdk_keyval_name(keyval));
+	glipper_debug("Human redable %s \n", gtk_accelerator_get_label(keyval, cons_modif));
 }
 
 static GtkWidget *config_dialog_draw_key_config(GKeyFile *konfig_key_file) {
@@ -194,6 +202,8 @@ static void on_cancel_clicked(GtkWidget *button, gpointer user_data) {
 }
 
 static void on_help_clicked(GtkWidget *button, gpointer user_data) {
+	GtkWidget *help_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_widget_show_all(help_window);
 	glipper_debug("Help clicked\n");
 }
 
@@ -202,8 +212,14 @@ static void on_save_clicked(GtkWidget *button, gpointer user_data) {
 	
 	GtkWidget *common_conf_wdg = g_object_get_data(G_OBJECT(main_config_window), "config_panel");
 	GKeyFile *keyfile = g_object_get_data(G_OBJECT(main_config_window), "keyfile");
+	RuntimeSettings *rts = g_object_get_data(G_OBJECT(main_config_window), "RuntimeSettings_pointer");
 	
 	config_dialog_save_data(common_conf_wdg, keyfile);
+	
+	runtime_settings_read_from_file(rts, keyfile);
+	
+	g_key_file_free(keyfile);
+	
 	gtk_widget_destroy(GTK_WIDGET(main_config_window));
 }
 
@@ -239,9 +255,9 @@ static void config_dialog_save_data(GtkWidget *config_panel, GKeyFile *keyfile) 
 	fprintf(config_fp, raw_keyfile);
 	fclose(config_fp);
 	g_free(raw_keyfile);
-	g_key_file_free(keyfile);
 }
+
 void config_dialog_free(void) {
-	/* do we need to unref the icon_pbxf ? */
+	/* this may be useful some day */
 	
 }

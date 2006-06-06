@@ -30,7 +30,6 @@ gboolean docklet_create(RuntimeSettings *rts) {
 	int icon_size = runtime_settings_get_tray_icon_size(rts) + 1;  
 	
 	if (runtime_settings_get_trasparent_tray(rts)) {
-		g_print("Tray ma być transparent\n");
 		GdkPixbuf *pbxf = gtk_widget_render_icon(GTK_WIDGET(docklet), GTK_STOCK_PASTE, icon_size, NULL);
 		
 		GdkBitmap *maska;
