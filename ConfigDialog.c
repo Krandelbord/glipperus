@@ -203,9 +203,19 @@ static void on_cancel_clicked(GtkWidget *button, gpointer user_data) {
 }
 
 static void on_help_clicked(GtkWidget *button, gpointer user_data) {
-	GtkWidget *help_win = help_window_new(GTK_WINDOW(user_data));
+	GtkWindow *parent_win = GTK_WINDOW(user_data);
 	
-	gtk_widget_show_all(help_win);
+	GtkWindow *old_help_win = g_object_get_data(G_OBJECT(parent_win), "help window");
+	
+	if (GTK_IS_WINDOW(old_help_win)) {
+		GtkWidget *bt = help_window_get_notify_button(old_help_win);
+		gtk_widget_show_all(bt);
+		// Let's hide this button after 3 seconds
+		g_timeout_add(3*1000, help_window_hide_notify_button, bt); 
+	} else {	
+		GtkWindow *help_win = help_window_new(parent_win);
+		g_object_set_data(G_OBJECT(parent_win), "help window", help_win);
+	}
 	glipper_debug("Help clicked\n");
 }
 

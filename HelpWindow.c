@@ -9,19 +9,19 @@ GtkWidget *help_window_append_general_help(void);
 GtkWidget *help_window_new_titlebar(void);
 GtkWidget *help_window_append_common(void);
 GtkWidget *help_window_append_configuration_help(void);
-
-GtkWidget *help_window_new(GtkWindow *parent_win) {
+void help_window_destroy(GtkObject *obj, gpointer);
+GtkWindow *help_window_new(GtkWindow *parent_win) {
 	GtkWidget *help_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_transient_for(GTK_WINDOW(help_window), parent_win);
 	gtk_window_set_destroy_with_parent(GTK_WINDOW(help_window), TRUE);
 	gtk_window_set_title(GTK_WINDOW(help_window), _("glipper help"));
 	
 	GdkScreen *gdk_scr = gdk_screen_get_default();
-	gint width = gdk_screen_get_width(gdk_scr);
-	gint height = gdk_screen_get_height(gdk_scr);
-	g_print("stara szerokość = %d, wysokość = %d\n", width, height);
+	gint width = gdk_screen_get_width(gdk_scr)/2.9;
+	gint height = gdk_screen_get_height(gdk_scr)/2.5;
 	
-	gtk_window_set_default_size(GTK_WINDOW(help_window), width/2.1, height/2.5);
+	int reszta_10 = width % 10;
+	gtk_window_set_default_size(GTK_WINDOW(help_window), width-reszta_10, height);
 	
 	GtkWidget *main_help_box = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(help_window), main_help_box);
@@ -38,22 +38,22 @@ GtkWidget *help_window_new(GtkWindow *parent_win) {
 	gtk_notebook_append_page(GTK_NOTEBOOK(help_notebook), general_help, gtk_label_new(_("General help")));
 	
 	
-	/*
-	GtkWidget *title_label = gtk_label_new(NULL);
-	gtk_label_set_markup(GTK_LABEL(title_label),
-		// Translators: pozdro 600a
-		_("<b>Configuration options:</b>")
-	);
-	*/
+	GtkWidget *button = gtk_button_new_with_label("One help window is enough...");
+	GtkWidget *sub = gtk_bin_get_child(GTK_BIN(button));
+	gtk_label_set_text(GTK_LABEL(sub),
+		_("<span color=\"red\">One help window is enough...</span>"));
+	gtk_label_set_use_markup(GTK_LABEL(sub), TRUE);
+	gtk_box_pack_end(GTK_BOX(main_help_box), button, FALSE, FALSE, 0);
+	
 	
 	/* This block is only temporray */
-	//GtkWidget *button = gtk_button_new_with_label("Bla bla ");
-	//gtk_box_pack_end(GTK_BOX(vbox), button, FALSE, FALSE, 0);
-	gtk_widget_show_all(help_window);
 	gtk_window_set_position(GTK_WINDOW(help_window), GTK_WIN_POS_CENTER_ALWAYS);
-	g_signal_connect(G_OBJECT(help_window), "destroy", gtk_main_quit, NULL);
+	g_signal_connect(G_OBJECT(help_window), "destroy", G_CALLBACK(help_window_destroy), NULL);
 	/* END of tomerpoary block*/
-	return help_window;
+	
+	gtk_widget_show_all(help_window);
+	gtk_widget_hide(button);
+	return GTK_WINDOW(help_window);
 }
 
 GtkWidget *help_window_append_common(void) {
@@ -142,13 +142,41 @@ GtkWidget *help_window_append_general_help(void) {
 		_("Here comes one of the glipper features: It saves every selection in it's menu,\n"
 		  "and when You need it in normal clipboard you can select it from menu.\n\n"), NULL);
 	
-	help_window_append_paragraph(text_buffer, _("Current clipboard entry is marked with tick mark\n"), NULL);
+	help_window_append_paragraph(text_buffer, 
+		_("You can pop-up glipper menu everywhere you need without touching mouse "
+		  "changeing focus. By pressing keybard combination - by defatult it is "), NULL);
+	help_window_append_paragraph(text_buffer, ("CTRL+ALT+V\n"), "bold_tag");
 	
+	help_window_append_paragraph(text_buffer, 
+		_("For now chaneging default keybard shortcut is not implemented\n"), NULL);
+		
 	return scrl_win;
+}
+
+GtkWidget *help_window_get_notify_button(GtkWindow *help_window) {
+	GtkWidget *main_box = gtk_bin_get_child(GTK_BIN(help_window));
+	GList *lista_widgetow = gtk_container_get_children(GTK_CONTAINER(main_box));
+	while (lista_widgetow!=NULL) {
+		if (GTK_IS_BUTTON(lista_widgetow->data))
+			return GTK_WIDGET(lista_widgetow->data);
+		lista_widgetow = g_list_next(lista_widgetow);
+	}
+	return NULL;
+}
+
+gboolean help_window_hide_notify_button(gpointer gp_button) {
+	if ( (gp_button!=NULL) && GTK_IS_BUTTON(gp_button))
+		gtk_widget_hide(GTK_WIDGET(gp_button));
+	return FALSE;
 }
 
 GtkWidget *help_window_new_titlebar(void) {
 	GtkWidget *lb = gtk_label_new("<b>Glipper help</b>");
 	gtk_label_set_use_markup(GTK_LABEL(lb), TRUE);
 	return lb;
+}
+
+void help_window_destroy(GtkObject *obj, gpointer data) {
+	gtk_object_destroy(obj);
+	obj=NULL;
 }
