@@ -15,18 +15,8 @@ ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
 	INSTALL_PROGRAM += -s
 endif
 
-configure: configure-stamp
-configure-stamp:
-	dh_testdir
-	touch configure-stamp
-
-
-build: build-stamp
-
-build-stamp: configure-stamp 
-	dh_testdir
+build:
 	$(MAKE)
-	touch build-stamp
 
 clean:
 	dh_testdir
