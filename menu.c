@@ -72,7 +72,6 @@ static void glipperus_contextMenu_add_clips (gpointer data, gpointer user_data) 
 }
 
 GtkWidget* glipperus_contextMenu_new (RuntimeSettings *rts) {
-	g_print("W menu szerokosc = %d \n", runtime_settings_get_menu_width(rts));
   GtkWidget *contextMenu;
   GtkWidget *separator;
   GtkWidget *ustawienia;

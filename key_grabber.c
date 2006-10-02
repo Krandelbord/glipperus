@@ -95,7 +95,7 @@ void position_thy_menu (GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpoi
 }
 
 static void do_key_acton(KeyAction action, XEvent *ev) {
-	printf("Wykonujemy %d \n", action);
+	glipperus_debug("Wykonujemy %d \n", action);
 	switch (action) {
 		case glipperus_ACTION_SHOW_MENU: {
 			GtkWidget *menu;
