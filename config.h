@@ -1,3 +1,6 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
 #define CLIP_GRABBER_INTERVAL_MS 200
 #define KEY_GRABBER_INTERVAL_MS 400
 
@@ -19,3 +22,5 @@
 #  define glipperus_debug(args...) ;
 #endif
 
+
+#endif /* CONFIG_H */

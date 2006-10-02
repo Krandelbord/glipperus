@@ -26,7 +26,7 @@ KonfigPath *konfig_path_new(gchar *program_name) {
 	return konfig_path;
 }
 
-konfig_path_file_exists(KonfigPath *konf_path) {
+gboolean konfig_path_file_exists(KonfigPath *konf_path) {
 	return g_file_test(konf_path->configuration, G_FILE_TEST_EXISTS);
 }
 

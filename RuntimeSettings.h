@@ -1,3 +1,4 @@
+#ifndef RUNTIME_SETTINGS_H
 #define RUNTIME_SETTINGS_H
 
 #include <gtk/gtk.h>
@@ -41,3 +42,5 @@ void runtime_settings_set_menu_width(RuntimeSettings *rts, int);
 int  runtime_settings_get_tray_icon_size(RuntimeSettings *rts);
 int  runtime_settings_get_number_of_entries(RuntimeSettings *rts);
 int  runtime_settings_get_menu_width(RuntimeSettings *rts);
+
+#endif

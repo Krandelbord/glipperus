@@ -1,13 +1,10 @@
-/* docklet.h
- * Contributed by Line72 <line72@line72.homelinux.com>
- */
+#ifndef DOCKLET_H
+#define DOCKLET_H
 
 #include <gtk/gtk.h>
 #include "eggtrayicon.h"
+#include "RuntimeSettings.h"
 
-#ifndef RUNTIME_SETTINGS_H
-	#include "RuntimeSettings.h"
-#endif
 
 GtkTooltips *tooltips;
 GtkWidget *box;
@@ -17,3 +14,5 @@ gboolean docklet_create(RuntimeSettings *rts);
 void docklet_toggle();
 
 void docklet_delete();
+
+#endif

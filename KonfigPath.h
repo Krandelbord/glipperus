@@ -1,3 +1,6 @@
+#ifndef KONFIG_PATH_H
+#define KONFIG_PATH_H
+
 #include <gtk/gtk.h>
 
 typedef struct _KonfigPath {
@@ -14,3 +17,5 @@ gboolean konfig_path_file_exists(KonfigPath *konf_path);
 void konfig_path_write_default_configuration(KonfigPath *konf_path);
 
 void konfig_path_free(KonfigPath *konf_path);
+
+#endif

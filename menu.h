@@ -1,7 +1,8 @@
+#ifndef MENU_H
+#define MENU_H
 #include <gtk/gtk.h>
-
-#ifndef RUNTIME_SETTINGS_H
-	#include "RuntimeSettings.h"
-#endif
+#include "RuntimeSettings.h"
 
 GtkWidget* glipperus_contextMenu_new (RuntimeSettings *rts);
+
+#endif
