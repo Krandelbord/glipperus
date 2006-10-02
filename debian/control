@@ -1,0 +1,24 @@
+Source: glipperus
+Section: x11
+Priority: optional
+Maintainer: Emil Nowak <emil5@go2.pl>
+Build-Depends: debhelper (>= 4.0.0), libgtk2.0-dev
+
+Package: glipperus
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: pure-gtk clipboard manager
+ Glipperus is pure-gtk clipboard manger simmilar to klipper from kde. It stores
+ history of clipboard operation, so you can re-use it. Or select if you wan't
+ .
+ As you can see by version number glipperus is still in early stage. There is
+ now way to adjust it's behaviour to users needs. So you have to use hardcoded
+ settings. You can click in tray-icon to popup glipperus menu, or press
+ ctrl+alt+V wherever you wan. Then you can select which entry should be copied
+ in clipboard.
+ .
+ There is no officaial homepage for this program, but all comments are very
+ welcome at: emil5@go2.pl
+ .
+ You can get subversion snapshot from my home-computer by doing:
+ svn co http://emiml.ath.cx:3690/subversion/glipperus
