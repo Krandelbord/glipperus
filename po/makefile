@@ -3,7 +3,7 @@ mo_files:= $(patsubst %.po,%.mo,$(translations))
 
 all: glipperus.pot $(mo_files)
 
-glipper.pot:
+glipperus.pot:
 	xgettext -cTranslators: --keyword=_ ../*.c ../*.h -o $@
 
 #updates all translation based on current pot file
