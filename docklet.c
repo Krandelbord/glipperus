@@ -14,7 +14,7 @@ GtkWidget *image;
 
 
 gboolean docklet_create(RuntimeSettings *rts) {
-	docklet = egg_tray_icon_new("glipper");
+	docklet = egg_tray_icon_new("glipperus");
 	box = gtk_event_box_new();
 	image = gtk_image_new();
 
@@ -50,7 +50,7 @@ gboolean docklet_create(RuntimeSettings *rts) {
 	g_object_ref(G_OBJECT(docklet));
 
 	GtkTooltips *tooltipy = gtk_tooltips_new ();
-	gtk_tooltips_set_tip (tooltipy, GTK_WIDGET( docklet), _("glipper - thy powered clipboard tool"), NULL);
+	gtk_tooltips_set_tip (tooltipy, GTK_WIDGET( docklet), _("glipperus - thy powered clipboard tool"), NULL);
 
 	return FALSE;
 }
@@ -64,7 +64,7 @@ void docklet_clicked(GtkWidget *button, GdkEventButton *event, gpointer *data) {
 
 	if (event->button == 3 || event->button == 1 || event->button == 2)
 	{
-		menu = glipper_contextMenu_new(rts);
+		menu = glipperus_contextMenu_new(rts);
 		gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL,
 				event->button, event->time);
 	}

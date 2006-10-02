@@ -33,6 +33,6 @@ TAGS:
 .PHONY : clean
 clean :
 	-rm *.o
-	-rm glipper
+	-rm glipperus
 	-rm tags
 	$(MAKE) clean -C po/

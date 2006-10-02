@@ -20,11 +20,11 @@
 #include "ConfigDialog.h"
 
 
-extern GList *glipper_stored_items; 
+extern GList *glipperus_stored_items; 
 
 int main(int argc, char *argv[]) {
 	//setlocale(LC_ALL, "");
-	bindtextdomain(PACKAGE, "/home/emil/programing/C/gtk/glipper/trunk/");
+	bindtextdomain(PACKAGE, "/home/emil/programing/C/gtk/glipperus/trunk/");
 	bind_textdomain_codeset(PACKAGE, "UTF-8");
 	textdomain(PACKAGE);
 
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
 	gtk_init(&argc, &argv);
 	
-	KonfigPath *kfpath = konfig_path_new("glipper");
+	KonfigPath *kfpath = konfig_path_new("glipperus");
 	if (! konfig_path_file_exists(kfpath))
 		konfig_path_write_default_configuration(kfpath);
 
@@ -42,12 +42,12 @@ int main(int argc, char *argv[]) {
 	
 	//GtkWidget *okno = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
-	glipper_stored_items_new(rts);
+	glipperus_stored_items_new(rts);
 	docklet_create(rts);
 
-	glipper_clip_grabber(rts);
+	glipperus_clip_grabber(rts);
 	
-	//glipper_assign_keygrab();
+	//glipperus_assign_keygrab();
 	
 	//config_dialog_new();
 	

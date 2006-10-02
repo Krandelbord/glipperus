@@ -10,12 +10,12 @@
 #define INSERT_KEY "SHIFT+INSERT"
 
 #include <libintl.h>
-#define PACKAGE "glipper"
+#define PACKAGE "glipperus"
 #define _(s) gettext(s)
 
 #ifdef DEBUG
-#  define glipper_debug(args...) g_print (args)
+#  define glipperus_debug(args...) g_print (args)
 #else
-#  define glipper_debug(args...) ;
+#  define glipperus_debug(args...) ;
 #endif
 

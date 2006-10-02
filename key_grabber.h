@@ -2,4 +2,4 @@
 	#include "RuntimeSettings.h"
 #endif
 
-void glipper_assign_keygrab(RuntimeSettings *rts);
+void glipperus_assign_keygrab(RuntimeSettings *rts);

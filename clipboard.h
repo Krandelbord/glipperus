@@ -2,6 +2,6 @@
 	#include "RuntimeSettings.h"
 #endif
 
-void glipper_clipboard_set_txt(const gchar *newtxt);
+void glipperus_clipboard_set_txt(const gchar *newtxt);
 
-void glipper_clip_grabber(RuntimeSettings *rts);
+void glipperus_clip_grabber(RuntimeSettings *rts);

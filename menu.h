@@ -4,4 +4,4 @@
 	#include "RuntimeSettings.h"
 #endif
 
-GtkWidget* glipper_contextMenu_new (RuntimeSettings *rts);
+GtkWidget* glipperus_contextMenu_new (RuntimeSettings *rts);

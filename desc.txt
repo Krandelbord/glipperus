@@ -6,7 +6,7 @@ Some applications save information only in selection. Even if you select
 "Copy" operation, or press Ctrl+C or Ctrl+insert.
 As the result you cannot paste it to some other application normaly. 
 
-Here comes one of the glipper features: It saves every selection in it's menu,
+Here comes one of the glipperus features: It saves every selection in it's menu,
 and when You need it in normal clipoard you can select it from menu. 
 
 Current clipboard entry is marked with tick mark

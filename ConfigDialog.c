@@ -24,7 +24,7 @@ void config_dialog_new(RuntimeSettings *rts) {
 	gtk_window_set_position(GTK_WINDOW(config_window), GTK_WIN_POS_CENTER);
 	
 	
-	gtk_window_set_title(GTK_WINDOW(config_window), _("glipper - configuration"));
+	gtk_window_set_title(GTK_WINDOW(config_window), _("glipperus - configuration"));
 	
 	GdkPixbuf *icon_pbxf = gtk_widget_render_icon(config_window, "gtk-preferences", GTK_ICON_SIZE_MENU, NULL);	
 	gtk_window_set_icon(GTK_WINDOW(config_window), icon_pbxf);
@@ -40,7 +40,7 @@ void config_dialog_new(RuntimeSettings *rts) {
 	gtk_box_pack_start(GTK_BOX(main_box), config_dialog_draw_buttonbar(GTK_WINDOW(config_window)), FALSE, FALSE, 0);
 	
 	GKeyFile *keyfile = g_key_file_new();
-	KonfigPath *konf_path = konfig_path_new("glipper");
+	KonfigPath *konf_path = konfig_path_new("glipperus");
 	g_key_file_load_from_file(keyfile, konf_path->configuration, G_KEY_FILE_KEEP_COMMENTS, NULL);
 	konfig_path_free(konf_path);
 	
@@ -89,7 +89,7 @@ static GtkWidget *config_dialog_draw_common_config(GKeyFile *konfig_keyfile, Run
 	
 	GtkWidget *main_box = gtk_vbox_new(FALSE, 10);
 	GtkWidget *title_lb = gtk_label_new(NULL);
-	gtk_label_set_markup (GTK_LABEL (title_lb), _("<b><big>glipper - configuration</big></b>"));
+	gtk_label_set_markup (GTK_LABEL (title_lb), _("<b><big>glipperus - configuration</big></b>"));
 	gtk_box_pack_start(GTK_BOX(main_box), title_lb, FALSE, FALSE, 10);
 	
 	gboolean ov_prim = runtime_settings_get_override_sel(rts);
@@ -156,7 +156,7 @@ gboolean key_is_not_modifier(gchar *keyname) {
 }
 
 static void cb_keyb_press(GtkWidget   *widget, GdkEventKey *event, gpointer user_data) {
-	glipper_debug("Wcisnieto klawisz\n");
+	glipperus_debug("Wcisnieto klawisz\n");
 	guint keyval;
 	GdkModifierType cons_modif;
 	gdk_keymap_translate_keyboard_state(gdk_keymap_get_default (),
@@ -169,25 +169,25 @@ static void cb_keyb_press(GtkWidget   *widget, GdkEventKey *event, gpointer user
 	/* There must be some real key (not ctrl/alt/shift) to assign shotrcut key */
 	if (key_is_not_modifier(last_key)) {
 		
-		glipper_debug("Koniec !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+		glipperus_debug("Koniec !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 		gchar **all_keys = g_strsplit(accelerator, ">", -1);
 		if (all_keys !=NULL) {
 			int i=0;
 			while (all_keys[i]!=NULL) {
-				glipper_debug("[%d]=%s\n", i, all_keys[i]);
+				glipperus_debug("[%d]=%s\n", i, all_keys[i]);
 				++i;
 			}
 		}
 	}
-	glipper_debug("Wcisnieto klawisz %d hw=%d, accel = %s\n", keyval, event->hardware_keycode, accelerator);
-	glipper_debug("Nazwa tego przyciska = %s\n", gdk_keyval_name(keyval));
-	glipper_debug("Human redable %s \n", gtk_accelerator_get_label(keyval, cons_modif));
+	glipperus_debug("Wcisnieto klawisz %d hw=%d, accel = %s\n", keyval, event->hardware_keycode, accelerator);
+	glipperus_debug("Nazwa tego przyciska = %s\n", gdk_keyval_name(keyval));
+	glipperus_debug("Human redable %s \n", gtk_accelerator_get_label(keyval, cons_modif));
 }
 
 static GtkWidget *config_dialog_draw_key_config(GKeyFile *konfig_key_file) {
 	GtkWidget *main_box = gtk_vbox_new(FALSE, 10);
 	GtkWidget *title_lb = gtk_label_new(NULL); 
-	gtk_label_set_markup(GTK_LABEL(title_lb), _("<b><big>glipper key config</big></b>"));
+	gtk_label_set_markup(GTK_LABEL(title_lb), _("<b><big>glipperus key config</big></b>"));
 	gtk_box_pack_start(GTK_BOX(main_box), title_lb, FALSE, FALSE, 0);
 	
 	GtkWidget *button = gtk_toggle_button_new_with_label(_("Choose keyboar shortcut"));
@@ -198,7 +198,7 @@ static GtkWidget *config_dialog_draw_key_config(GKeyFile *konfig_key_file) {
 }
 
 static void on_cancel_clicked(GtkWidget *button, gpointer user_data) {
-	glipper_debug("Cancel clicked\n");
+	glipperus_debug("Cancel clicked\n");
 	gtk_widget_destroy(GTK_WIDGET(user_data));
 }
 
@@ -216,7 +216,7 @@ static void on_help_clicked(GtkWidget *button, gpointer user_data) {
 		GtkWindow *help_win = help_window_new(parent_win);
 		g_object_set_data(G_OBJECT(parent_win), "help window", help_win);
 	}
-	glipper_debug("Help clicked\n");
+	glipperus_debug("Help clicked\n");
 }
 
 static void on_save_clicked(GtkWidget *button, gpointer user_data) {	
@@ -261,7 +261,7 @@ static void on_destroy_cb(GtkObject *obj, gpointer data) {
 static void config_dialog_save_data(GtkWidget *config_panel, GKeyFile *keyfile) {
 	gtk_container_foreach(GTK_CONTAINER(config_panel), each_widget_cb, keyfile);
 	gchar *raw_keyfile = g_key_file_to_data(keyfile, NULL, NULL);
-	KonfigPath *konf_path = konfig_path_new("glipper");
+	KonfigPath *konf_path = konfig_path_new("glipperus");
 	FILE *config_fp = fopen(konf_path->configuration, "w");
 	konfig_path_free(konf_path);
 	fprintf(config_fp, raw_keyfile);

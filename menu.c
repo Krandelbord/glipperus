@@ -6,7 +6,7 @@
 
 #include "config.h"
 
-extern GList *glipper_stored_items;
+extern GList *glipperus_stored_items;
 
 static void on_menuitem_clicked (GtkImageMenuItem *menuitem, gpointer oneContextMenu) {
 	RuntimeSettings *rts = g_object_get_data(G_OBJECT(menuitem), "RuntimeSettings_pointer");
@@ -15,8 +15,8 @@ static void on_menuitem_clicked (GtkImageMenuItem *menuitem, gpointer oneContext
 	GtkWidget *label = gtk_bin_get_child(GTK_BIN(menuitem));
 	const gchar *txt = gtk_label_get_text(GTK_LABEL(label));
 
-	glipper_stored_items_set_active(txt);
-	//glipper_clipboard_set_txt(txt);
+	glipperus_stored_items_set_active(txt);
+	//glipperus_clipboard_set_txt(txt);
 	gtk_clipboard_set_text(gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), txt, -1);
 	
 	if (runtime_settings_get_override_sel(rts))
@@ -39,9 +39,9 @@ static void on_exit_clicked (GtkMenuItem *menuitem, gpointer user_data) {
 	gtk_main_quit();
 }
 
-static void glipper_contextMenu_add_clips (gpointer data, gpointer user_data) {
+static void glipperus_contextMenu_add_clips (gpointer data, gpointer user_data) {
 	GtkWidget *contextMenu = user_data;
-	glipper_clip_item *clip = data;
+	glipperus_clip_item *clip = data;
 	GtkWidget *clip_content_menu;
 	GtkLabel *label;
 
@@ -71,7 +71,7 @@ static void glipper_contextMenu_add_clips (gpointer data, gpointer user_data) {
 	}
 }
 
-GtkWidget* glipper_contextMenu_new (RuntimeSettings *rts) {
+GtkWidget* glipperus_contextMenu_new (RuntimeSettings *rts) {
 	g_print("W menu szerokosc = %d \n", runtime_settings_get_menu_width(rts));
   GtkWidget *contextMenu;
   GtkWidget *separator;
@@ -85,7 +85,7 @@ GtkWidget* glipper_contextMenu_new (RuntimeSettings *rts) {
   contextMenu = gtk_menu_new ();
 
   g_object_set_data(G_OBJECT(contextMenu), "RuntimeSettings_pointer", rts);
-  g_list_foreach(glipper_stored_items, (GFunc)glipper_contextMenu_add_clips, contextMenu);  
+  g_list_foreach(glipperus_stored_items, (GFunc)glipperus_contextMenu_add_clips, contextMenu);  
 
   separator = gtk_menu_item_new ();
   gtk_widget_show (separator);

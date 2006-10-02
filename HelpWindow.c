@@ -14,7 +14,7 @@ GtkWindow *help_window_new(GtkWindow *parent_win) {
 	GtkWidget *help_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_transient_for(GTK_WINDOW(help_window), parent_win);
 	gtk_window_set_destroy_with_parent(GTK_WINDOW(help_window), TRUE);
-	gtk_window_set_title(GTK_WINDOW(help_window), _("glipper help"));
+	gtk_window_set_title(GTK_WINDOW(help_window), _("glipperus help"));
 	
 	GdkScreen *gdk_scr = gdk_screen_get_default();
 	gint width = gdk_screen_get_width(gdk_scr)/2.9;
@@ -139,11 +139,11 @@ GtkWidget *help_window_append_general_help(void) {
 		  "\"Copy\" operation, or press Ctrl+C or Ctrl+insert.\n"
 		  "As the result you cannot paste it to some other application normally.\n\n"), NULL);
 	help_window_append_paragraph(text_buffer, 
-		_("Here comes one of the glipper features: It saves every selection in it's menu,\n"
+		_("Here comes one of the glipperus features: It saves every selection in it's menu,\n"
 		  "and when You need it in normal clipboard you can select it from menu.\n\n"), NULL);
 	
 	help_window_append_paragraph(text_buffer, 
-		_("You can pop-up glipper menu everywhere you need without touching mouse "
+		_("You can pop-up glipperus menu everywhere you need without touching mouse "
 		  "changeing focus. By pressing keybard combination - by defatult it is "), NULL);
 	help_window_append_paragraph(text_buffer, ("CTRL+ALT+V\n"), "bold_tag");
 	
@@ -171,7 +171,7 @@ gboolean help_window_hide_notify_button(gpointer gp_button) {
 }
 
 GtkWidget *help_window_new_titlebar(void) {
-	GtkWidget *lb = gtk_label_new("<b>Glipper help</b>");
+	GtkWidget *lb = gtk_label_new("<b>glipperus help</b>");
 	gtk_label_set_use_markup(GTK_LABEL(lb), TRUE);
 	return lb;
 }
