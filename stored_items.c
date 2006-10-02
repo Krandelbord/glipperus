@@ -61,12 +61,10 @@ void glipperus_stored_items_add(glipperus_clip_item *new_item, RuntimeSettings *
 		glipperus_clip_item_destroy(new_item);
 		return;
 	}
-	guint ilosc = 0;
-	ilosc = g_list_length(glipperus_stored_items);
 	
 	gboolean remove_similar = runtime_settings_get_overwrite_similar(rts);
 	if (remove_similar) {
-		/* Check if we have a entry which start like our new entry */
+		/* Check if we have a entry which starts with the same characters as our new entry */
 		GList *found_similar_entry = g_list_find_custom(glipperus_stored_items, new_item, (GCompareFunc)search_starting_with);
 		if (found_similar_entry!=NULL) {
 			glipperus_debug("Found entry starting with the same text \n");
@@ -76,8 +74,12 @@ void glipperus_stored_items_add(glipperus_clip_item *new_item, RuntimeSettings *
 			glipperus_stored_items = g_list_delete_link(glipperus_stored_items, found_similar_entry);
 		}
 	}
-	
+
+
+	guint ilosc = 0;
+	ilosc = g_list_length(glipperus_stored_items);
 	gint max_nr_of_entries = runtime_settings_get_number_of_entries(rts);
+
 	while (ilosc > max_nr_of_entries) { /* If the list is too long (specyfied by usr options */
 		/* Get the last entry */
 		glipperus_clip_item *nadmiar= g_list_nth_data(glipperus_stored_items, ilosc-1);
@@ -89,6 +91,7 @@ void glipperus_stored_items_add(glipperus_clip_item *new_item, RuntimeSettings *
 		
 		//removing lik which points to empty space
 		glipperus_stored_items = g_list_delete_link(glipperus_stored_items, g_list_nth(glipperus_stored_items, ilosc-1));
+		ilosc--;
 	}
 	glipperus_stored_items = g_list_prepend (glipperus_stored_items, (gpointer) new_item);
 }
