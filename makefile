@@ -4,7 +4,7 @@ CFLAGS+=-Wall -g3
 CFLAGS +=`pkg-config --cflags gtk+-2.0`
 LDFLAGS +=`pkg-config --libs gtk+-2.0`
 
-glipper: main.o docklet.o eggtrayicon.o menu.o stored_items.o key_grabber.o clipboard.o clip_item.o InfoWindow.o KonfigPath.o ConfigDialog.o ConfigWidget.o RuntimeSettings.o HelpWindow.o
+glipperus: main.o docklet.o eggtrayicon.o menu.o stored_items.o key_grabber.o clipboard.o clip_item.o InfoWindow.o KonfigPath.o ConfigDialog.o ConfigWidget.o RuntimeSettings.o HelpWindow.o
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
 main.o: main.c config.h docklet.h menu.h key_grabber.h stored_items.h clipboard.h ConfigDialog.h RuntimeSettings.h KonfigPath.h
