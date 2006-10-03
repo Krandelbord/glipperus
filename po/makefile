@@ -1,5 +1,7 @@
 translations := $(wildcard *.po)
 mo_files:= $(patsubst %.po,%.mo,$(translations))
+GETTEXT_DIR=../$(DESTDIR)$(prefix)share/locale/
+
 
 all: glipperus.pot $(mo_files)
 
@@ -14,11 +16,22 @@ $(translations): glipperus.pot
 $(mo_files): $(translations)
 	msgfmt $< -o $@
 
-
 update-po: $(translations)
 
-install:
-	msgfmt pl.po -o ../pl/LC_MESSAGES/glipperus.mo
+TRANS_DIRS := $(patsubst %.po, $(GETTEXT_DIR)%/LC_MESSAGES/,$(translations))
+
+create_dirs: *.po
+	@echo "Creating directiories"
+	@echo "Translations = $(TRANS_DIRS)"
+	$(foreach, plik, $^, touch $plik)
+	install -d $(TRANS_DIRS)
+
+install-translations: *.po
+	#for plik in $^ ; do echo $$plik ; done
+
+install: create_dirs
+	msgfmt pl.po -o $(GETTEXT_DIR)pl/LC_MESSAGES/glipperus.mo
+	msgfmt uk.po -o $(GETTEXT_DIR)uk/LC_MESSAGES/glipperus.mo
 
 .PHONY : clean
 clean :

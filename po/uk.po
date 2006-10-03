@@ -1,88 +1,226 @@
-# Polskie tłumaczeni glippera:
+# Ukrainian translation of glipperus:
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Emil Nowak, 2006 
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: glipper v0.1\n"
+"Project-Id-Version: glipperus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-23 17:47+0200\n"
-"PO-Revision-Date: 2006-05-19 23:38+0200\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2006-10-03 16:15+0200\n"
+"PO-Revision-Date: 2006-10-03 16:16+0200\n"
+"Last-Translator: Emil Nowak <emil5@go2.pl>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../ConfigDialog.c:20
-msgid "glipper - configuration"
+#: ../ConfigDialog.c:1
+msgid "glipperus - configuration"
 msgstr ""
 
-#: ../ConfigDialog.c:40
+#: ../ConfigDialog.c:1
 msgid "Common preferences"
 msgstr ""
 
-#: ../ConfigDialog.c:44
+#: ../ConfigDialog.c:1
 msgid "keyboard shortcuts"
+msgstr "Швидкі клавіші"
+
+#: ../ConfigDialog.c:1
+msgid "<b><big>glipperus - configuration</big></b>"
 msgstr ""
 
-#: ../ConfigDialog.c:78
-msgid "<b><big>glipper - configuration</big></b>"
-msgstr ""
-
-#: ../ConfigDialog.c:81
+#: ../ConfigDialog.c:1
 msgid "Override primary selection"
 msgstr ""
 
-#: ../ConfigDialog.c:84
+#: ../ConfigDialog.c:1
+msgid "Overwrite similar entries"
+msgstr ""
+
+#: ../ConfigDialog.c:1
 msgid "Transparent tray icon"
 msgstr ""
 
-#: ../ConfigDialog.c:87
+#: ../ConfigDialog.c:1
 msgid "Tray icon size"
 msgstr ""
 
-#: ../ConfigDialog.c:87
+#: ../ConfigDialog.c:1
+msgid "Tiny"
+msgstr ""
+
+#: ../ConfigDialog.c:1
 msgid "Small"
+msgstr "Малі"
+
+#: ../ConfigDialog.c:1
+msgid "Normal"
 msgstr ""
 
-#: ../ConfigDialog.c:87
-msgid "Medium"
-msgstr ""
-
-#: ../ConfigDialog.c:87
+#: ../ConfigDialog.c:1
 msgid "Large"
+msgstr "Великі"
+
+#: ../ConfigDialog.c:1
+msgid "Huge"
+msgstr "Величезні"
+
+#: ../ConfigDialog.c:1
+msgid "Extra huge"
 msgstr ""
 
-#: ../ConfigDialog.c:90
+#: ../ConfigDialog.c:1
 msgid "Number of items in menu"
 msgstr ""
 
-#: ../ConfigDialog.c:93
+#: ../ConfigDialog.c:1
 msgid "Width of menu items in [chars]"
+msgstr "Ширина меню [znakow]"
+
+#: ../ConfigDialog.c:1
+msgid "Press key combination..."
 msgstr ""
 
-#: ../ConfigDialog.c:104
-msgid "<b><big>glipper key config</big></b>"
+#: ../ConfigDialog.c:1 ../ConfigDialog.c:1
+msgid "Choose keyboard shortcut"
+msgstr "Швидкі клавіші"
+
+#: ../ConfigDialog.c:1
+msgid "<b><big>glipperus key config</big></b>"
+msgstr "<b><big>glipperus - Конфігурація клавіатури</big></b>"
+
+#: ../HelpWindow.c:1
+msgid "glipperus help"
 msgstr ""
 
-#: ../InfoWindow.c:10
-msgid "glipper - clipboard manager"
+#: ../HelpWindow.c:1
+msgid "Configuration help"
 msgstr ""
 
-#: ../stored_items.c:12
+#: ../HelpWindow.c:1
+msgid "General help"
+msgstr ""
+
+#: ../HelpWindow.c:1
+msgid "<span color=\"red\">One help window is enough...</span>"
+msgstr ""
+
+#: ../HelpWindow.c:1
+msgid ""
+"Configuration Help\n"
+"\n"
+msgstr ""
+
+#: ../HelpWindow.c:1
+msgid "Override primary selection: "
+msgstr ""
+
+#. Translators: This is description of "Override primary selection" option from configuration
+#: ../HelpWindow.c:1
+msgid ""
+"When this option is enabled choosing entry from gliper menu will put this in "
+"normal Clipboard and in Selection clipboard as well.\n"
+"\n"
+msgstr ""
+
+#: ../HelpWindow.c:1
+msgid "Overwrite similar entries: "
+msgstr ""
+
+#: ../HelpWindow.c:1
+msgid ""
+"When this option is enabled entries which has same prefix as current "
+"selection will be overwriten\n"
+"\n"
+msgstr ""
+
+#: ../HelpWindow.c:1 ../HelpWindow.c:1
+msgid "Transparent tray: "
+msgstr ""
+
+#: ../HelpWindow.c:1 ../HelpWindow.c:1
+msgid ""
+"This option needs restart to take effect\n"
+"\n"
+msgstr ""
+
+#: ../HelpWindow.c:1
+msgid ""
+"General Help\n"
+"\n"
+msgstr ""
+
+#: ../HelpWindow.c:1
+msgid ""
+"Xserver has two clipboards:\n"
+"1. To store selection\n"
+"2. For normal copy+paste\n"
+msgstr ""
+
+#: ../HelpWindow.c:1
+msgid ""
+"Some applications save information only in selection. Even if you select\n"
+"\"Copy\" operation, or press Ctrl+C or Ctrl+insert.\n"
+"As the result you cannot paste it to some other application normally.\n"
+"\n"
+msgstr ""
+
+#: ../HelpWindow.c:1
+msgid ""
+"Here comes one of the glipperus features: It saves every selection in it's "
+"menu,\n"
+"and when You need it in normal clipboard you can select it from menu.\n"
+"\n"
+msgstr ""
+
+#: ../HelpWindow.c:1
+msgid ""
+"You can pop-up glipperus menu everywhere you need without touching mouse "
+"changeing focus. By pressing keybard combination - by defatult it is "
+msgstr ""
+
+#: ../HelpWindow.c:1
+msgid "For now chaneging default keybard shortcut is not implemented\n"
+msgstr ""
+
+#: ../InfoWindow.c:1
+msgid "glipperus - clipboard manager"
+msgstr "Утиліта кишені - glipperus"
+
+#: ../RuntimeSettings.c:1
+#, c-format
+msgid "Error reading configuration file from: %s\n"
+msgstr ""
+
+#: ../docklet.c:1
+#, fuzzy
+msgid "glipperus - thy powered clipboard tool"
+msgstr "Утиліта кишені - glipperus"
+
+#: ../key_grabber.c:1
+msgid "glipperus error: Cannot open default XDisplay.\n"
+msgstr ""
+
+#: ../key_grabber.c:1
+msgid "glipperus error: Cannot open root window\n"
+msgstr ""
+
+#: ../stored_items.c:1
 msgid "first default text"
-msgstr "pierwszy tekst"
+msgstr "перший типовий текст"
 
-#: ../stored_items.c:13
+#: ../stored_items.c:1
 msgid "second default text.."
-msgstr "jakiś drugi domyślny tekst"
+msgstr "друг типовий текст"
 
-#: ../stored_items.c:14
+#: ../stored_items.c:1
 msgid "third default text"
-msgstr ""
+msgstr "третій типовий текст"
 
-#: ../stored_items.c:15
+#: ../stored_items.c:1
 msgid "active default text"
-msgstr ""
+msgstr "активної типовий текст"
+
+#~ msgid "Medium"
+#~ msgstr "Середні"
