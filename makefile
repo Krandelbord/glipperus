@@ -7,19 +7,19 @@ LDFLAGS +=`pkg-config --libs gtk+-2.0`
 glipperus: main.o docklet.o eggtrayicon.o menu.o stored_items.o key_grabber.o clipboard.o clip_item.o InfoWindow.o KonfigPath.o ConfigDialog.o ConfigWidget.o RuntimeSettings.o HelpWindow.o
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
-main.o: main.c config.h docklet.h menu.h key_grabber.h stored_items.h clipboard.h ConfigDialog.h RuntimeSettings.h KonfigPath.h
-docklet.o: docklet.h docklet.c config.h menu.h eggtrayicon.h RuntimeSettings.h
-menu.o: menu.h menu.c config.h clipboard.h stored_items.h InfoWindow.h RuntimeSettings.h ConfigDialog.h
-stored_items.o: stored_items.c stored_items.h config.h clip_item.h clipboard.h RuntimeSettings.h
-key_grabber.o: key_grabber.h key_grabber.c config.h menu.h stored_items.h RuntimeSettings.h
-clipboard.o: clipboard.h clipboard.c config.h stored_items.h RuntimeSettings.h
-clip_item.o: clip_item.h clip_item.c stored_items.h
-InfoWindow.o: InfoWindow.h InfoWindow.c config.h
-KonfigPath.o: KonfigPath.h KonfigPath.c
-ConfigDialog.o: ConfigDialog.h ConfigDialog.c config.h KonfigPath.h RuntimeSettings.h HelpWindow.h
-ConfigWidget.o: ConfigWidget.h ConfigWidget.c config.h
-RuntimeSettings.o: RuntimeSettings.h RuntimeSettings.c config.h
-HelpWindow.o: HelpWindow.h config.h HelpWindow.c
+main.o: main.c docklet.h RuntimeSettings.h key_grabber.h stored_items.h clip_item.h clipboard.h KonfigPath.h config.h
+docklet.o: docklet.c docklet.h RuntimeSettings.h eggtrayicon.h menu.h config.h
+menu.o: menu.c menu.h RuntimeSettings.h clipboard.h stored_items.h clip_item.h InfoWindow.h ConfigDialog.h config.h
+stored_items.o: stored_items.c stored_items.h RuntimeSettings.h clip_item.h clipboard.h config.h
+key_grabber.o: key_grabber.c key_grabber.h RuntimeSettings.h menu.h config.h stored_items.h clip_item.h clipboard.h
+clipboard.o: clipboard.c stored_items.h RuntimeSettings.h clip_item.h clipboard.h config.h
+clip_item.o: clip_item.c stored_items.h RuntimeSettings.h clip_item.h clipboard.h
+InfoWindow.o: InfoWindow.c InfoWindow.h config.h
+KonfigPath.o: KonfigPath.c KonfigPath.h
+ConfigDialog.o: ConfigDialog.c ConfigDialog.h RuntimeSettings.h KonfigPath.h ConfigWidget.h HelpWindow.h config.h
+ConfigWidget.o: ConfigWidget.c ConfigWidget.h RuntimeSettings.h
+RuntimeSettings.o: RuntimeSettings.c RuntimeSettings.h config.h
+HelpWindow.o: HelpWindow.c HelpWindow.h config.h
 
 po:
 	$(MAKE) -C po/
