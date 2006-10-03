@@ -159,19 +159,7 @@ static gboolean nasluch_klawiszy(gpointer data) {
 				//GtkWidget *menu;
 				//menu = glipperus_contextMenu_new(rts);
 				//gtk_menu_set_screen (GTK_MENU(menu), gdk_screen_get_default());
-				
-				/*
-				gdk_threads_enter();
-				gtk_menu_popup(GTK_MENU(menu), 
-						NULL, 
-						NULL, (GtkMenuPositionFunc)position_thy_menu,
-						&ev, 
-						ev.xbutton.button,
-						ev.xbutton.time);
-				gdk_threads_leave();
-				glipperus_debug("Klawiszologia = %d Powinno pojawić się menu\n", ev.xkey.keycode);
-				*/
-				
+								
 				sprawdz_wcisk(&ev, rts);
 			} //koniec przetwarzania zdarzenia KeyPressed
 			glipperus_debug("Przetwarzamy zdzarznie typu %d \n", ev.type);
@@ -195,6 +183,5 @@ void glipperus_assign_keygrab(RuntimeSettings *rts) {
 	modifier = modifier|ControlMask;
 	grab_key(106, modifier, root, glipperus_ACTION_COPY); */
 	
-	//g_thread_create(thread_nasluch_klawiszy, NULL, FALSE, &blad);
 	g_timeout_add(KEY_GRABBER_INTERVAL_MS, (GSourceFunc)nasluch_klawiszy, rts);
 }
