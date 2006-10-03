@@ -1,12 +1,11 @@
 #include <gtk/gtk.h>
-#include "ConfigDialog.h"
-
-#include "KonfigPath.h"
 #include <string.h>
+#include "config.h"
 
 #include "ConfigWidget.h"
+#include "ConfigDialog.h"
+#include "KonfigPath.h"
 #include "HelpWindow.h"
-#include "config.h"
 
 static GtkWidget *config_dialog_draw_common_config(GKeyFile *key_config_file, RuntimeSettings *rts);
 static GtkWidget *config_dialog_draw_key_config(GKeyFile *key_config_file);
