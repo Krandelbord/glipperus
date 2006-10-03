@@ -1,24 +1,15 @@
 #include <gtk/gtk.h>
 
 #include "docklet.h"
-#include "menu.h"
 #include "key_grabber.h"
 #include "stored_items.h"
 #include "clipboard.h"
-
-#ifndef RUNTIME_SETTINGS_H
-	#include "RuntimeSettings.h"
-#endif
-
+#include "RuntimeSettings.h"
 #include "KonfigPath.h"
 #include "config.h"
 
 #include <libintl.h>
 #include <locale.h>
-
-
-#include "ConfigDialog.h"
-
 
 extern GList *glipperus_stored_items; 
 
@@ -46,10 +37,8 @@ int main(int argc, char *argv[]) {
 	docklet_create(rts);
 
 	glipperus_clip_grabber(rts);
-	
-	//glipperus_assign_keygrab();
-	
-	//config_dialog_new();
+
+	glipperus_assign_keygrab(rts);
 	
 	gtk_main();
 

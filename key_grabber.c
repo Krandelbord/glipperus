@@ -18,6 +18,8 @@ typedef enum {
 typedef struct {
 	guchar keycode, modifier;
 	KeyAction action;
+	XEvent *current_event;
+	RuntimeSettings *rts;
 } Key;
 
 GSList *kList = NULL; //List of keys
@@ -53,7 +55,7 @@ void init_keyboard()
 
 void grab_key(guchar keycode, unsigned int modifiers, Window w, KeyAction assigned_action) {
 	Key *k;
-	k = g_malloc(sizeof(k));
+	k = g_new0(Key, 1);
 	k->keycode = keycode;
 
 	k->modifier = modifiers;
@@ -94,13 +96,11 @@ void position_thy_menu (GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpoi
 	y = (gint *) 100;
 }
 
-static void do_key_acton(KeyAction action, XEvent *ev) {
+static void do_key_acton(KeyAction action, XEvent *ev, RuntimeSettings *rts) {
 	glipperus_debug("Wykonujemy %d \n", action);
 	switch (action) {
 		case glipperus_ACTION_SHOW_MENU: {
 			GtkWidget *menu;
-			//FIXME: temportay null pointer 
-			RuntimeSettings *rts;
 			menu = glipperus_contextMenu_new(rts);
 			gtk_menu_popup(GTK_MENU(menu),
 					NULL, 
@@ -125,20 +125,26 @@ static void do_key_acton(KeyAction action, XEvent *ev) {
 	}
 }
 
-void porownaj_klawisze(gpointer stored_Key, gpointer event) {
+void porownaj_klawisze(gpointer stored_Key, gpointer EvData) {
 	Key *key = stored_Key;
-	XEvent *ev = event; //hmm.. 
+	Key *event_data = EvData;
+
+	XEvent *ev = event_data->current_event; //hmm.. 
 	ev->xkey.state=ev->xkey.state&(Mod1Mask|ControlMask|ShiftMask);
-	if (key->keycode == ev->xkey.keycode && key->modifier==ev->xkey.state) do_key_acton(key->action, ev);
-	
+	if (key->keycode == ev->xkey.keycode && key->modifier==ev->xkey.state) do_key_acton(key->action, ev, event_data->rts);
 }
 
-static void sprawdz_wcisk(XEvent *ev) {
+static void sprawdz_wcisk(XEvent *ev, RuntimeSettings *rts) {
+	Key *k = g_new0(Key, 1);
+	k->current_event = ev;
+	k->rts = rts;
 	glipperus_debug("Porownanie klaiwszy\n");
-	g_slist_foreach(kList, (GFunc)porownaj_klawisze, ev);
+	g_slist_foreach(kList, (GFunc)porownaj_klawisze, k);
+	g_free(k);
 }
 
-static gboolean nasluch_klawiszy(void *args) {
+static gboolean nasluch_klawiszy(gpointer data) {
+	RuntimeSettings *rts = (RuntimeSettings*) data;
 	glipperus_debug("Początek działania w timoucie \n");
 		if(XPending(dpy)) {
 			XEvent ev;
@@ -149,10 +155,9 @@ static gboolean nasluch_klawiszy(void *args) {
 				// czyli że prawie nie wiem o co chodzi: Do gtk_menu_popup musi 
 				// być puszczony event aby mógł natysować to menu. Jeżeli byśmy go zdjęli 
 				// i nie odłożyli (za pomocą XPutBackEvent) to manu się rysuje bardz-czasami. (Bez sensu).
-				GtkWidget *menu;
-				//FIXME: runtime kurde tymczose
-				RuntimeSettings *rts;
-				menu = glipperus_contextMenu_new(rts);
+				//
+				//GtkWidget *menu;
+				//menu = glipperus_contextMenu_new(rts);
 				//gtk_menu_set_screen (GTK_MENU(menu), gdk_screen_get_default());
 				
 				/*
@@ -166,7 +171,8 @@ static gboolean nasluch_klawiszy(void *args) {
 				gdk_threads_leave();
 				glipperus_debug("Klawiszologia = %d Powinno pojawić się menu\n", ev.xkey.keycode);
 				*/
-				sprawdz_wcisk(&ev);
+				
+				sprawdz_wcisk(&ev, rts);
 			} //koniec przetwarzania zdarzenia KeyPressed
 			glipperus_debug("Przetwarzamy zdzarznie typu %d \n", ev.type);
 		}
@@ -190,5 +196,5 @@ void glipperus_assign_keygrab(RuntimeSettings *rts) {
 	grab_key(106, modifier, root, glipperus_ACTION_COPY); */
 	
 	//g_thread_create(thread_nasluch_klawiszy, NULL, FALSE, &blad);
-	g_timeout_add(KEY_GRABBER_INTERVAL_MS, (GSourceFunc)nasluch_klawiszy, NULL);
+	g_timeout_add(KEY_GRABBER_INTERVAL_MS, (GSourceFunc)nasluch_klawiszy, rts);
 }
