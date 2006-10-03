@@ -1,6 +1,9 @@
 CFLAGS+=-Wall -g3
 #CFLAGS+=-O2
+prefix=/usr/
 
+# internal stuff - usally you don't have to edit below this line
+CPPFLAGS+=-DGETTEXT_PATH=\"$(prefix)/share/locale\"
 CFLAGS +=`pkg-config --cflags gtk+-2.0`
 LDFLAGS +=`pkg-config --libs gtk+-2.0`
 
@@ -29,6 +32,11 @@ TAGS:
 
 %.o: %.c %.h
 	$(CC) -c $(CFLAGS) $< -o $@
+
+install:
+	install -d $(DESTDIR)$(prefix)/bin
+	install glipperus $(DESTDIR)$(prefix)/bin/
+	$(MAKE) install prefix=$(prefix) -C po/
 
 .PHONY : clean
 clean :

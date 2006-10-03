@@ -133,7 +133,7 @@ static void tg_button_pressed_cb(GtkToggleButton *bt, gpointer data) {
 		gtk_button_set_label(GTK_BUTTON(bt), _("Press key combination..."));
 		gdk_keyboard_ungrab (GDK_CURRENT_TIME);
 	} else {
-		gtk_button_set_label(GTK_BUTTON(bt), _("Choose keyboar shortcut"));
+		gtk_button_set_label(GTK_BUTTON(bt), _("Choose keyboard shortcut"));
 		gdk_keyboard_grab(gtk_widget_get_root_window(GTK_WIDGET(bt)), TRUE, GDK_CURRENT_TIME);
 	}
 	
@@ -188,7 +188,7 @@ static GtkWidget *config_dialog_draw_key_config(GKeyFile *konfig_key_file) {
 	gtk_label_set_markup(GTK_LABEL(title_lb), _("<b><big>glipperus key config</big></b>"));
 	gtk_box_pack_start(GTK_BOX(main_box), title_lb, FALSE, FALSE, 0);
 	
-	GtkWidget *button = gtk_toggle_button_new_with_label(_("Choose keyboar shortcut"));
+	GtkWidget *button = gtk_toggle_button_new_with_label(_("Choose keyboard shortcut"));
 	gtk_box_pack_start(GTK_BOX(main_box), button, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(button), "toggled", G_CALLBACK(tg_button_pressed_cb), NULL);
 	g_signal_connect(G_OBJECT(button), "key-press-event", G_CALLBACK (cb_keyb_press), NULL);

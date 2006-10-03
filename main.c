@@ -15,7 +15,7 @@ extern GList *glipperus_stored_items;
 
 int main(int argc, char *argv[]) {
 	//setlocale(LC_ALL, "");
-	bindtextdomain(PACKAGE, "/home/emil/programing/C/gtk/glipperus/trunk/");
+	bindtextdomain(PACKAGE, GETTEXT_PATH);
 	bind_textdomain_codeset(PACKAGE, "UTF-8");
 	textdomain(PACKAGE);
 

@@ -2,7 +2,7 @@
 #rules for glipperus
 
 # Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+export DH_VERBOSE=1
 
 CFLAGS = -Wall -g
 
@@ -26,6 +26,7 @@ clean:
 	dh_clean 
 
 install: build
+	$(MAKE) install
 	dh_testdir
 	dh_testroot
 	dh_clean -k 
