@@ -2,7 +2,6 @@
 #define DOCKLET_H
 
 #include <gtk/gtk.h>
-#include "eggtrayicon.h"
 #include "RuntimeSettings.h"
 
 

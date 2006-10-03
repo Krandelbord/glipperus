@@ -6,7 +6,6 @@
 
 #include "ConfigWidget.h"
 #include "HelpWindow.h"
-#define DEBUG
 #include "config.h"
 
 static GtkWidget *config_dialog_draw_common_config(GKeyFile *key_config_file, RuntimeSettings *rts);

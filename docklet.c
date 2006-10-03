@@ -2,6 +2,7 @@
  * Contributed by Line72 <line72@line72.homelinux.com>
  */
 #include "docklet.h"
+#include "eggtrayicon.h"
 #include "menu.h"
 #include "config.h"
 
