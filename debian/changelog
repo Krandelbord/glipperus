@@ -1,3 +1,16 @@
+glipperus (0.85.1-0) unstable; urgency=low
+
+  * Fix broken configuration file
+
+ -- Emil Nowak <emil5@go2.pl>  Thu, 04 Jan 2007 22:42:35 +0200
+
+
+glipperus (0.85-0) unstable; urgency=low
+
+  * New relase
+
+ -- Emil Nowak <emil5@go2.pl>  Tue, 03 Oct 2006 16:43:37 +0200
+
 glipperus (0.1-1) unstable; urgency=low
 
   * Initial Release
