@@ -33,15 +33,15 @@ gboolean konfig_path_file_exists(KonfigPath *konf_path) {
 void konfig_path_write_default_configuration(KonfigPath *konf_path) {
 	GKeyFile *config_keyfile = g_key_file_new();
 	
-	g_key_file_set_boolean(config_keyfile, "main", "override primary", FALSE);
+	g_key_file_set_boolean(config_keyfile, "main", "override_primary", FALSE);
 	
-	g_key_file_set_boolean(config_keyfile, "main", "transparent tray", FALSE);
+	g_key_file_set_boolean(config_keyfile, "main", "transparent_tray", FALSE);
 	
-	g_key_file_set_integer(config_keyfile, "main", "tray icon size", 2);
+	g_key_file_set_integer(config_keyfile, "main", "tray_icon_size", 2);
 	
-	g_key_file_set_integer(config_keyfile, "main", "number of menuitems", 5);
+	g_key_file_set_integer(config_keyfile, "main", "number_of_menuitems", 5);
 	
-	g_key_file_set_integer(config_keyfile, "main", "menu entry width", 40);
+	g_key_file_set_integer(config_keyfile, "main", "menu_entry_width", 40);
 	
 	gchar *raw_keyfile = g_key_file_to_data(config_keyfile, NULL, NULL);
 	

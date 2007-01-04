@@ -19,13 +19,13 @@ RuntimeSettings *runtime_settings_new(gchar *path_to_config) {
 }
 
 void runtime_settings_read_from_file(RuntimeSettings *rts, GKeyFile *kf) {
-	rts->override_selection = g_key_file_get_boolean(kf, "main", "override primary", NULL);
-	rts->overwrite_similar = g_key_file_get_boolean(kf, "main", "overwrite similar", NULL);
-	rts->trasparent_tray = g_key_file_get_boolean(kf, "main", "transparent tray", NULL);
+	rts->override_selection = g_key_file_get_boolean(kf, "main", "override_primary", NULL);
+	rts->overwrite_similar = g_key_file_get_boolean(kf, "main", "overwrite_similar", NULL);
+	rts->trasparent_tray = g_key_file_get_boolean(kf, "main", "transparent_tray", NULL);
 	
-	rts->tray_icon_size = g_key_file_get_integer(kf, "main", "tray icon size", NULL);
-	rts->number_of_entries = g_key_file_get_integer(kf, "main", "number of menuitems", NULL);
-	rts->menu_width = g_key_file_get_integer(kf, "main", "menu entry width", NULL);
+	rts->tray_icon_size = g_key_file_get_integer(kf, "main", "tray_icon_size", NULL);
+	rts->number_of_entries = g_key_file_get_integer(kf, "main", "number_of_menuitems", NULL);
+	rts->menu_width = g_key_file_get_integer(kf, "main", "menu_entry_width", NULL);
 }
 
 void runtime_settings_set_override_sel(RuntimeSettings *rts, gboolean override_selection) {

@@ -91,19 +91,19 @@ static GtkWidget *config_dialog_draw_common_config(GKeyFile *konfig_keyfile, Run
 	gtk_box_pack_start(GTK_BOX(main_box), title_lb, FALSE, FALSE, 10);
 	
 	gboolean ov_prim = runtime_settings_get_override_sel(rts);
-	GtkWidget *set_01 = config_widget_new_bool(rts, ov_prim, konfig_keyfile, "override primary", _("Override primary selection"));
+	GtkWidget *set_01 = config_widget_new_bool(rts, ov_prim, konfig_keyfile, "override_primary", _("Override primary selection"));
 	gtk_box_pack_start(GTK_BOX(main_box), set_01, FALSE, FALSE, 0);
 	
 	gboolean ov_sim = runtime_settings_get_overwrite_similar(rts);
-	GtkWidget *set_02 = config_widget_new_bool(rts, ov_sim, konfig_keyfile, "overwrite similar", _("Overwrite similar entries"));
+	GtkWidget *set_02 = config_widget_new_bool(rts, ov_sim, konfig_keyfile, "overwrite_similar", _("Overwrite similar entries"));
 	gtk_box_pack_start(GTK_BOX(main_box), set_02, FALSE, FALSE, 0);
 	
 	gboolean transp_tray = runtime_settings_get_trasparent_tray(rts);
-	GtkWidget *set_03 = config_widget_new_bool(rts, transp_tray, konfig_keyfile, "transparent tray", _("Transparent tray icon"));
+	GtkWidget *set_03 = config_widget_new_bool(rts, transp_tray, konfig_keyfile, "transparent_tray", _("Transparent tray icon"));
 	gtk_box_pack_start(GTK_BOX(main_box), set_03, FALSE, FALSE, 0);
 	
 	gint tray_size = runtime_settings_get_tray_icon_size(rts);
-	GtkWidget *set_04 = config_widget_new_combo(rts, tray_size, konfig_keyfile, "tray icon size", 
+	GtkWidget *set_04 = config_widget_new_combo(rts, tray_size, konfig_keyfile, "tray_icon_size", 
 		_("Tray icon size"), 
 		_("Tiny"), 
 		_("Small"), 
@@ -115,11 +115,11 @@ static GtkWidget *config_dialog_draw_common_config(GKeyFile *konfig_keyfile, Run
 	gtk_box_pack_start(GTK_BOX(main_box), set_04, FALSE, FALSE, 0);	
 	
 	gint entries_numb = runtime_settings_get_number_of_entries(rts);
-	GtkWidget *set_05 = config_widget_new_int(rts, entries_numb, konfig_keyfile, "number of menuitems", _("Number of items in menu"));
+	GtkWidget *set_05 = config_widget_new_int(rts, entries_numb, konfig_keyfile, "number_of_menuitems", _("Number of items in menu"));
 	gtk_box_pack_start(GTK_BOX(main_box), set_05, FALSE, FALSE, 0);
 	
 	gint menu_width = runtime_settings_get_menu_width(rts);
-	GtkWidget *set_06 = config_widget_new_int(rts, menu_width, konfig_keyfile, "menu entry width", _("Width of menu items in [chars]"));
+	GtkWidget *set_06 = config_widget_new_int(rts, menu_width, konfig_keyfile, "menu_entry_width", _("Width of menu items in [chars]"));
 	gtk_box_pack_start(GTK_BOX(main_box), set_06, FALSE, FALSE, 0);
 	
 	//gtk_container_foreach(GTK_CONTAINER(main_box), each_widget_cb, konfig_keyfile);
