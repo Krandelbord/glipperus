@@ -36,4 +36,4 @@ install: create_dirs
 .PHONY : clean
 clean :
 	-rm glipperus.pot
-	-rm $(mo_files)
+	-rm -f $(mo_files)

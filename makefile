@@ -4,11 +4,11 @@ prefix=/usr/
 
 # internal stuff - usally you don't have to edit below this line
 CPPFLAGS+=-DGETTEXT_PATH=\"$(prefix)/share/locale\"
-CFLAGS +=`pkg-config --cflags gtk+-2.0`
-LDFLAGS +=`pkg-config --libs gtk+-2.0`
+CFLAGS +=`pkg-config --cflags gtk+-2.0 glib-2.0`
+LDFLAGS +=`pkg-config --libs gtk+-2.0 glib-2.0` -lX11
 
 glipperus: main.o docklet.o eggtrayicon.o menu.o stored_items.o key_grabber.o clipboard.o clip_item.o InfoWindow.o KonfigPath.o ConfigDialog.o ConfigWidget.o RuntimeSettings.o HelpWindow.o
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
+	$(CC) $^ $(CFLAGS) $(LDFLAGS) -o $@
 
 main.o: main.c docklet.h RuntimeSettings.h key_grabber.h stored_items.h clip_item.h clipboard.h KonfigPath.h config.h
 docklet.o: docklet.c docklet.h RuntimeSettings.h eggtrayicon.h menu.h config.h
@@ -31,7 +31,7 @@ TAGS:
 	ctags -R *
 
 %.o: %.c %.h
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) $< -c $(CFLAGS) -o $@
 
 install:
 	install -d $(DESTDIR)$(prefix)/bin
