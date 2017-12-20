@@ -1,3 +1,7 @@
+glipperus (0.86-0) unstable; urgency=low
+  * Remove eggtray
+ -- Emil Nowak <emil5@go2.pl>  Wed, 20 Dec 2017 21:13:06 +0200
+
 glipperus (0.85.1-0) unstable; urgency=low
 
   * Fix broken configuration file
